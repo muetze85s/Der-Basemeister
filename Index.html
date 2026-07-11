@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium-Alkalisch-Osmotisches Laborportal v1.0.0-PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3063/3063822.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { slate: { 950: '#0b1329' }, indigo: { 950: '#1c2541' } }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @media print {
+            body, html, header, nav, footer, button, .no-print, input, select, .admin-only {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            main { display: block !important; width: 100% !important; background: white !important; }
+            .tab-pane.active { display: block !important; visibility: visible !important; }
+            .tab-pane.active * { color: black !important; background: transparent !important; }
+        }
+        .step-checkbox:checked + span { text-decoration: line-through; color: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen font-sans flex flex-col">
+
+<header class="no-print bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 text-white shadow-md py-4 px-4 sm:px-8 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+        <div class="p-2 bg-indigo-500/10 rounded-xl text-teal-400 text-lg"><i class="fa-solid fa-droplet"></i></div>
+        <div>
+            <h1 class="text-lg font-bold">Premium-Detox Portal</h1>
+            <p class="text-[10px] text-slate-400 uppercase tracking-wide">Physiologische Osmosetherapie</p>
+        </div>
+    </div>
+    
+    <div class="flex items-center space-x-4">
+        <div class="flex bg-slate-950/60 p-1 rounded-xl border border-indigo-500/10">
+            <button id="btn-mode-vollbad" onclick="setBathType('vollbad')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-indigo-600 text-white">150L Vollbad</button>
+            <button id="btn-mode-fussbad" onclick="setBathType('fussbad')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all text-slate-400">10L Fußbad</button>
+        </div>
+        <button onclick="toggleAdmin()" class="p-2 text-slate-400 hover:text-teal-400"><i class="fa-solid fa-key text-sm"></i></button>
+        <span class="text-[10px] font-mono text-slate-500">v1.0.0-PWA</span>
+    </div>
+</header>
+
+<nav class="no-print bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm overflow-x-auto flex px-4 py-2 space-x-2">
+    <button onclick="setActiveTab(1)" id="tab-btn-1" class="px-4 py-2 rounded-lg text-xs font-semibold bg-indigo-50 text-indigo-700">1. Wissenschaft</button>
+    <button onclick="setActiveTab(2)" id="tab-btn-2" class="px-4 py-2 rounded-lg text-xs font-semibold text-slate-600">2. Anwendung</button>
+    <button onclick="setActiveTab(3)" id="tab-btn-3" class="admin-only hidden px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 bg-amber-50 text-amber-800">3. Mengenrechner</button>
+    <button onclick="setActiveTab(4)" id="tab-btn-4" class="admin-only hidden px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 bg-amber-50 text-amber-800">4. Kostenkalkulation</button>
+    <button onclick="setActiveTab(5)" id="tab-btn-5" class="admin-only hidden px-4 py-2 rounded-lg text-xs font-semibold text-slate-600 bg-amber-50 text-amber-800">5. Labor-Zubereitung</button>
+</nav>
+
+<main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
+
+    <section id="tab-content-1" class="tab-pane space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h2 class="text-xl font-bold mb-2 text-slate-900">1. Biophysikalische & physiologische Wirkungsmechanismen</h2>
+            <p class="text-slate-600 text-sm">Die therapeutische Wirksamkeit dieses Systems basiert auf der Etablierung eines elektrochemischen und osmotischen Gradienten zwischen den sauren Gewebekompartimenten des Körpers und dem alkalischen Außenmedium der Badelösung.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-5 bg-white rounded-xl border border-slate-200"><h3 class="font-bold text-indigo-900 mb-2">Osmotischer Sog</h3><p class="text-xs text-slate-600">Durch das basische Milieu (pH ca. 8,5) wandern Säureprotonen über die Schweißdrüsen nach außen.</p></div>
+            <div class="p-5 bg-white rounded-xl border border-slate-200"><h3 class="font-bold text-teal-900 mb-2">Transdermal-Shunt</h3><p class="text-xs text-slate-600">Die Kombination aus Magnesiumchlorid und Magnesiumsulfat maximiert die Ionenaktivität über Haarfollikel und Drüsenwege.</p></div>
+            <div class="p-5 bg-white rounded-xl border border-slate-200"><h3 class="font-bold text-amber-900 mb-2">Adsorptiv-Schutz</h3><p class="text-xs text-slate-600">Ultrafeine Mineralsilikate binden transepidermal ausgeschiedene Schwermetalle irreversibel.</p></div>
+        </div>
+    </section>
+
+    <section id="tab-content-2" class="tab-pane hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h2 class="text-xl font-bold mb-4">Therapeutisches Anwendungsprotokoll</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-3 text-sm">
+                    <p><strong>Wassertemperatur:</strong> 36,5°C - 37,5°C (Thermoneutrale Zone)</p>
+                    <p><strong>Badedauer:</strong> <span id="val-duration">Mindestens 120 Minuten</span></p>
+                    <p><strong>Nachsorge:</strong> Nach dem Bad absolut <span class="text-red-600 font-bold">nicht abspülen</span>! Der Mineralfilm verbleibt auf der Haut.</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl text-white text-xs flex flex-col justify-between">
+                    <h3 class="font-bold text-teal-400 mb-2"><i class="fa-solid fa-compass"></i> Lymph-Bürstungssequenz (Alle 15-20 Min)</h3>
+                    <p>Bürstrichtung stets in Richtung des nächsten primären Lymphknotenzentrums einhalten.</p>
+                    <div class="mt-2 p-2 bg-slate-800 rounded border border-slate-700 text-amber-400 font-mono">
+                        Tipp: Extremitäten immer von unten nach oben in Leiste/Achsel bürsten.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tab-content-3" class="tab-pane hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-slate-900">Rezeptur- & Mengenrechner</h2>
+                <div class="flex items-center space-x-2">
+                    <label class="text-xs font-bold text-slate-600">Chargen-Größe (Beutel):</label>
+                    <input type="number" id="input-batch-size" value="10" min="1" oninput="calculateMatrix()" class="w-16 p-1 border text-center rounded font-bold">
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 border-b font-bold text-slate-600">
+                            <th class="p-2">Inhaltsstoff</th>
+                            <th class="p-2">Phase</th>
+                            <th class="p-2 text-right">1 Portion (g)</th>
+                            <th class="p-2 text-right">Gesamtcharge (g)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recipe-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="tab-content-4" class="tab-pane hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h2 class="text-xl font-bold mb-4">Kaufmännisches Bezugs-Cockpit (Einkauf Realdaten)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-center">
+                <div class="bg-slate-900 text-white p-4 rounded-xl"><span class="text-xs text-slate-400 block">Selbstkosten / Portion</span><span id="cost-per-bag" class="text-2xl font-extrabold text-teal-400">0.00 THB</span></div>
+                <div class="bg-slate-800 text-white p-4 rounded-xl"><span class="text-xs text-slate-400 block">Gesamtkosten der Charge</span><span id="cost-total-batch" class="text-2xl font-extrabold text-white">0.00 THB</span></div>
+                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 flex flex-col justify-center"><span class="text-[11px] font-bold text-indigo-950">Haupt-Kostentreiber</span><span id="main-cost-driver" class="text-xs font-medium text-slate-600 mt-1">-</span></div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 border-b font-bold">
+                            <th class="p-2">Rohstoff / Beutel</th>
+                            <th class="p-2 text-right">EK-Preis (Händler)</th>
+                            <th class="p-2 text-right">Gebinde</th>
+                            <th class="p-2 text-right">Anteilskosten</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cost-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="tab-content-5" class="tab-pane hidden space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h2 class="text-xl font-bold text-red-700 mb-2 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Galenischer Herstellungsablauf</h2>
+            <div class="space-y-3 text-xs">
+                <label class="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg"><input type="checkbox" class="step-checkbox mt-0.5"><span class="leading-relaxed"><strong>Schritt 1 (Phase A):</strong> Mineralskelett einwiegen und homogenisieren.</span></label>
+                <label class="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg"><input type="checkbox" class="step-checkbox mt-0.5"><span class="leading-relaxed"><strong>Schritt 2 (Phase B):</strong> Tween 20 und ätherische Öle komplett klar rühren.</span></label>
+                <label class="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg"><input type="checkbox" class="step-checkbox mt-0.5"><span class="leading-relaxed"><strong>Schritt 3 (Phase C):</strong> Fumed Silica mit Phase B kneten, bis es trocken-rieselfähig ist. Zwingend FFP2-Maske tragen!</span></label>
+                <label class="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg"><input type="checkbox" class="step-checkbox mt-0.5"><span class="leading-relaxed"><strong>Schritt 4 (Split-Abfüllung):</strong> Phase A in Beutel füllen, Phase C oben aufsetzen und bei 180°C verschweißen.</span></label>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    let currentMode = 'vollbad';
+    let isAdminUnlocked = false;
+
+    const baseRecipes = {
+        vollbad: {
+            bicarb: 500, mgcl: 150, mgso4: 100, salt: 100, soda: 50, zeolith: 50, bentonit: 30, fucus: 15,
+            tween: 6.00, cypress: 3.00, juniper: 2.00, rosemary: 2.00, lavender: 1.50, silica: 10.00, pouch: 1
+        },
+        fussbad: {
+            bicarb: 75, mgcl: 22.5, mgso4: 15, salt: 15, soda: 7.5, zeolith: 7.5, bentonit: 4.5, fucus: 2.25,
+            tween: 0.9, cypress: 0.45, juniper: 0.3, rosemary: 0.3, lavender: 0.225, silica: 1.5, pouch: 1
+        }
+    };
+
+    const merchantPrices = {
+        bicarb: { price: 401, size: 5000, name: "Natriumbicarbonat (NaHCO3)" },
+        mgcl: { price: 549, size: 5000, name: "Magnesiumchlorid (MgCl2)" },
+        mgso4: { price: 526.5, size: 5000, name: "Magnesiumsulfat (MgSO4)" },
+        salt: { price: 623, size: 1000, name: "Keltisches Meersalz" },
+        soda: { price: 478, size: 5000, name: "Natriumcarbonat (Na2CO3)" },
+        zeolith: { price: 0, size: 200, name: "Zeolith-Klinoptilolith" },
+        bentonit: { price: 214, size: 2000, name: "Calcium-Bentonit" },
+        fucus: { price: 0, size: 250, name: "Fucus vesiculosus (Blasentang)" },
+        tween: { price: 190, size: 100, name: "Tween 20" },
+        cypress: { price: 765, size: 30, name: "Zypressenöl" },
+        juniper: { price: 320, size: 10, name: "Wacholderbeerenöl" },
+        rosemary: { price: 377, size: 10, name: "Rosmarinöl (CT Cineol)" },
+        lavender: { price: 130, size: 10, name: "Lavendelöl" },
+        silica: { price: 175, size: 100, name: "Fumed Silica (Aerosil 200)" },
+        pouch: { price: 210, size: 50, name: "Alu-Kraftpapierbeutel" }
+    };
+
+    const ingredientPhases = {
+        bicarb: 'A', mgcl: 'A', mgso4: 'A', salt: 'A', soda: 'A', zeolith: 'A', bentonit: 'A', fucus: 'A',
+        tween: 'B', cypress: 'B', juniper: 'B', rosemary: 'B', lavender: 'B', silica: 'C', pouch: 'Verpackung'
+    };
+
+    function setBathType(mode) {
+        currentMode = mode;
+        document.getElementById('btn-mode-vollbad').className = mode === 'vollbad' ? 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-indigo-600 text-white' : 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all text-slate-400';
+        document.getElementById('btn-mode-fussbad').className = mode === 'fussbad' ? 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-indigo-600 text-white' : 'px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all text-slate-400';
+        document.getElementById('val-duration').innerText = mode === 'vollbad' ? 'Mindestens 120 Minuten' : '30 bis 45 Minuten';
+        calculateMatrix();
+    }
+
+    function toggleAdmin() {
+        if(!isAdminUnlocked) {
+            let p = prompt("Bitte PIN eingeben:");
+            if(p === "0000" || p === "") {
+                isAdminUnlocked = true;
+                document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
+                alert("Admin-Bereich freigeschaltet!");
+            }
+        }
+    }
+
+    function setActiveTab(num) {
+        document.querySelectorAll('.tab-pane').forEach(t => t.classList.add('hidden'));
+        document.getElementById(`tab-content-${num}`).classList.remove('hidden');
+    }
+
+    function calculateMatrix() {
+        const batchSize = parseFloat(document.getElementById('input-batch-size').value) || 1;
+        const recipe = baseRecipes[currentMode];
+        
+        let recipeHtml = '';
+        for (let key in recipe) {
+            if (key === 'pouch') continue;
+            recipeHtml += `<tr class="border-b">
+                <td class="p-2 font-semibold">${merchantPrices[key].name}</td>
+                <td class="p-2"><span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100">Phase ${ingredientPhases[key]}</span></td>
+                <td class="p-2 text-right">${recipe[key].toFixed(3)} g</td>
+                <td class="p-2 text-right font-bold text-indigo-600">${(recipe[key] * batchSize).toFixed(2)} g</td>
+            </tr>`;
+        }
+        document.getElementById('recipe-table-body').innerHTML = recipeHtml;
+
+        let costHtml = '';
+        let totalSingleCost = 0;
+        let drivers = [];
+
+        for (let key in recipe) {
+            let portionCost = recipe[key] * (merchantPrices[key].price / merchantPrices[key].size);
+            totalSingleCost += portionCost;
+            drivers.push({ name: merchantPrices[key].name, cost: portionCost });
+
+            costHtml += `<tr class="border-b">
+                <td class="p-2">${merchantPrices[key].name}</td>
+                <td class="p-2 text-right">${merchantPrices[key].price.toFixed(2)} THB</td>
+                <td class="p-2 text-right">${merchantPrices[key].size}</td>
+                <td class="p-2 text-right font-bold text-emerald-600">${portionCost.toFixed(2)} THB</td>
+            </tr>`;
+        }
+        
+        document.getElementById('cost-table-body').innerHTML = costHtml;
+        document.getElementById('cost-per-bag').innerText = `${totalSingleCost.toFixed(2)} THB`;
+        document.getElementById('cost-total-batch').innerText = `${(totalSingleCost * batchSize).toFixed(2)} THB`;
+
+        drivers.sort((a,b) => b.cost - a.cost);
+        if(drivers.length > 0) document.getElementById('main-cost-driver').innerText = drivers[0].name;
+    }
+
+    calculateMatrix();
+</script>
+</body>
+</html>
