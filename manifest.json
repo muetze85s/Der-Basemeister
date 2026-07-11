@@ -1,0 +1,15 @@
+{
+  "name": "Premium Alkalisch-Osmotisches Laborportal",
+  "short_name": "DetoxPortal",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b1329",
+  "theme_color": "#1c2541",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
