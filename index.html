@@ -5,34 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium-Alkalisch-Osmotisches Laborportal v1.0.1-PWA</title>
     
-    <!-- PWA & Apple Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3063/3063822.png">
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome for high-end icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        slate: {
-                            950: '#0b1329',
-                        },
-                        indigo: {
-                            950: '#1c2541',
-                        }
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { slate: { 950: '#0b1329' }, indigo: { 950: '#1c2541' } }
                 }
             }
         }
@@ -48,7 +35,6 @@
                 padding: 0 !important;
                 margin: 0 !important;
             }
-            
             main {
                 display: block !important;
                 visibility: visible !important;
@@ -58,7 +44,6 @@
                 margin: 0 !important;
                 background: white !important;
             }
-
             .tab-pane.active {
                 display: block !important;
                 visibility: visible !important;
@@ -73,116 +58,71 @@
                 box-shadow: none !important;
                 border-color: #cbd5e1 !important;
             }
-
             #tab-content-3, #tab-content-4, #tab-content-5 {
                 display: none !important;
                 visibility: hidden !important;
                 height: 0 !important;
                 opacity: 0 !important;
             }
-
-            .card {
-                border: 1px solid #cbd5e1 !important;
-                page-break-inside: avoid;
-            }
-            
-            svg {
-                max-height: 280px !important;
-            }
+            .card { border: 1px solid #cbd5e1 !important; page-break-inside: avoid; }
+            svg { max-height: 280px !important; }
         }
 
         /* SVG Lymph-Animation Keyframes */
-        @keyframes flowUp {
-            from { stroke-dashoffset: 40; }
-            to { stroke-dashoffset: 0; }
-        }
-        @keyframes flowDown {
-            from { stroke-dashoffset: 0; }
-            to { stroke-dashoffset: 40; }
-        }
-        @keyframes pulseNode {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.35); opacity: 1; }
-        }
-        .flow-path-up {
-            stroke-dasharray: 6, 4;
-            animation: flowUp 1.8s linear infinite;
-        }
-        .flow-path-down {
-            stroke-dasharray: 6, 4;
-            animation: flowDown 1.8s linear infinite;
-        }
-        .lymph-node {
-            transform-origin: center;
-            animation: pulseNode 2.5s ease-in-out infinite;
-        }
-
-        .step-checkbox:checked + span {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
+        @keyframes flowUp { from { stroke-dashoffset: 40; } to { stroke-dashoffset: 0; } }
+        @keyframes flowDown { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 40; } }
+        @keyframes pulseNode { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.35); opacity: 1; } }
+        .flow-path-up { stroke-dasharray: 6, 4; animation: flowUp 1.8s linear infinite; }
+        .flow-path-down { stroke-dasharray: 6, 4; animation: flowDown 1.8s linear infinite; }
+        .lymph-node { transform-origin: center; animation: pulseNode 2.5s ease-in-out infinite; }
+        .step-checkbox:checked + span { text-decoration: line-through; color: #94a3b8; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen font-sans flex flex-col selection:bg-indigo-500 selection:text-white">
 
-<!-- Header (No Print) -->
 <header class="no-print bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 text-white shadow-md relative overflow-hidden">
     <div class="absolute inset-0 opacity-5 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-teal-400 via-blue-500 to-indigo-900"></div>
-    
     <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 relative z-10 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="p-2 bg-indigo-500/10 rounded-xl border border-indigo-500/20 text-teal-400 text-lg">
                 <i class="fa-solid fa-droplet"></i>
             </div>
             <div>
-                <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">
-                    Premium-Detox Portal
-                </h1>
+                <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Premium-Detox Portal</h1>
                 <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Physiologische Osmosetherapie</p>
             </div>
         </div>
         
         <div class="flex items-center space-x-4">
-            <!-- Bath Type Switcher -->
             <div class="flex bg-slate-950/60 p-1 rounded-xl border border-indigo-500/10 shadow-inner">
                 <button id="btn-mode-vollbad" onclick="setBathType('vollbad')" class="flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-300 bg-indigo-600 text-white shadow-sm">
-                    <i class="fa-solid fa-bath"></i>
-                    <span>150L Vollbad</span>
+                    <i class="fa-solid fa-bath"></i><span>150L Vollbad</span>
                 </button>
                 <button id="btn-mode-fussbad" onclick="setBathType('fussbad')" class="flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-300 text-slate-400 hover:text-white">
-                    <i class="fa-solid fa-shoe-prints"></i>
-                    <span>10L Fußbad</span>
+                    <i class="fa-solid fa-shoe-prints"></i><span>10L Fußbad</span>
                 </button>
             </div>
-
-            <!-- Secret Key Button for admin reveal -->
-            <button onclick="handleKeyClick()" class="p-2 text-slate-400 hover:text-teal-400 transition-colors duration-200" title="Admin-Schnittstelle">
+            <button onclick="handleKeyClick()" class="p-2 text-slate-400 hover:text-teal-400 transition-colors duration-200">
                 <i id="secret-key-icon" class="fa-solid fa-key text-sm"></i>
             </button>
-
-            <span class="text-[10px] font-mono text-slate-500 hidden sm:inline-block">v1.0.0-PWA</span>
+            <span class="text-[10px] font-mono text-slate-400 border border-slate-700 bg-slate-950 px-2 py-0.5 rounded">v1.0.1-PWA</span>
         </div>
     </div>
 </header>
 
-<!-- Sub-Navigation for Tabs (No Print) -->
 <nav class="no-print bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div class="flex space-x-1 overflow-x-auto py-2 scrollbar-none" id="main-nav-container">
             <button onclick="setActiveTab(1)" id="tab-btn-1" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors bg-indigo-50 text-indigo-700">
-                <i class="fa-solid fa-book-open"></i>
-                <span>1. Wissenschaft & Wirkung</span>
+                <i class="fa-solid fa-book-open"></i><span>1. Wissenschaft & Wirkung</span>
             </button>
-            
             <button onclick="setActiveTab(2)" id="tab-btn-2" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors text-slate-600 hover:bg-slate-50">
-                <i class="fa-solid fa-heart-pulse text-emerald-500"></i>
-                <span>2. Anwendung & Massage</span>
+                <i class="fa-solid fa-heart-pulse text-emerald-500"></i><span>2. Anwendung & Massage</span>
             </button>
         </div>
     </div>
 </nav>
 
-<!-- Main Content Area -->
 <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8">
     
     <div class="hidden print:block border-b border-slate-300 pb-3 mb-6">
@@ -191,11 +131,10 @@
                 <h1 class="text-xl font-bold text-slate-900" id="print-header-title">Premium-Alkalisch-Osmotisches Vollbad</h1>
                 <p class="text-slate-500 font-semibold text-[10px]" id="print-header-subtitle">Therapeutisches Anwendungsprotokoll</p>
             </div>
-            <span class="text-[8px] font-mono border border-slate-300 px-1.5 py-0.5 rounded">v1.0.0-PWA</span>
+            <span class="text-[8px] font-mono border border-slate-300 px-1.5 py-0.5 rounded">v1.0.1-PWA</span>
         </div>
     </div>
 
-    <!-- TAB 1: Wissenschaft & Wirkung -->
     <section id="tab-content-1" class="tab-pane active space-y-8">
         <div class="border-b border-slate-200 pb-4">
             <h2 class="text-xl sm:text-2xl font-bold text-slate-900">1. Biophysikalische & physiologische Wirkungsmechanismen</h2>
@@ -203,209 +142,125 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-11 h-11 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-lg mb-4">
-                        <i class="fa-solid fa-arrows-spin"></i>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mb-2">Osmotischer Sog</h3>
-                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                        Durch das basische Milieu des Badewassers (pH ca. 8,5) entsteht ein physikalisches Gefälle zu Ihren sauren Gewebeschichten. Die überschüssigen Säureprotonen (H⁺) wandern entlang dieses Konzentrationsunterschieds über die Schweißdrüsen der Haut direkt in die Wanne, wo sie unschädlich neutralisiert werden.
-                    </p>
-                </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="w-11 h-11 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-lg mb-4"><i class="fa-solid fa-arrows-spin"></i></div>
+                <h3 class="text-base font-bold text-slate-900 mb-2">Osmotischer Sog</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">Durch das basische Milieu des Badewassers (pH ca. 8,5) entsteht ein physikalisches Gefälle zu Ihren sauren Gewebeschichten. Die überschüssigen Säureprotonen (H⁺) wandern entlang dieses Konzentrationsunterschieds über die Schweißdrüsen der Haut direkt in die Wanne.</p>
             </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-11 h-11 bg-teal-100 rounded-xl flex items-center justify-center text-teal-600 text-lg mb-4">
-                        <i class="fa-solid fa-filter"></i>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mb-2">Entgiftung über Drüsen</h3>
-                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                        Die Millionen feinen Schweißdrüsen Ihrer Haut sind ein extrem leistungsstarkes Ausscheidungskanal-System. Wissenschaftliche Arbeiten zeigen, dass toxische Schwermetalle wie Blei, Cadmium, Nickel und Quecksilber bei gezielter Anregung hocheffizient über den Schweiß ausgeschieden werden können.
-                    </p>
-                </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="w-11 h-11 bg-teal-100 rounded-xl flex items-center justify-center text-teal-600 text-lg mb-4"><i class="fa-solid fa-filter"></i></div>
+                <h3 class="text-base font-bold text-slate-900 mb-2">Entgiftung über Drüsen</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">Die Millionen feinen Schweißdrüsen Ihrer Haut sind ein extrem leistungsstarkes Ausscheidungskanal-System. Wissenschaftliche Arbeiten zeigen, dass toxische Schwermetalle bei gezielter Anregung hocheffizient ausgeschieden werden können.</p>
             </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div>
-                    <div class="w-11 h-11 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 text-lg mb-4">
-                        <i class="fa-solid fa-water-lading"></i>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mb-2">Fließende Lymphe</h3>
-                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                        Das Lymphsystem transportiert zelluläre Abfallstoffe ab, possesses jedoch keine eigene Pumpe. Das warme Bad weitet die Blutgefäße, und der osmotische Wasserentzug macht die Gewebsflüssigkeit dünnflüssiger. Gestaute Lymphe fängt wieder an frei zu fließen, und Gewebeschwellungen (Ödeme) klingen ab.
-                    </p>
-                </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <div class="w-11 h-11 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 text-lg mb-4"><i class="fa-solid fa-water-lading"></i></div>
+                <h3 class="text-base font-bold text-slate-900 mb-2">Fließende Lymphe</h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">Das Lymphsystem transportiert zelluläre Abfallstoffe ab. Das warme Bad weitet die Blutgefäße, und der osmotische Wasserentzug macht die Gewebsflüssigkeit dünnflüssiger. Gestaute Lymphe fängt wieder an frei zu fließen.</p>
             </div>
         </div>
 
-        <!-- Comprehensive Scientific Lexikon -->
         <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
-            <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2">
-                <i class="fa-solid fa-flask text-indigo-500"></i>
-                Wissenschaftliches Zutaten-Lexikon: Warum jede Komponente unverzichtbar ist
-            </h3>
-            
+            <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2"><i class="fa-solid fa-flask text-indigo-500"></i> Wissenschaftliches Zutaten-Lexikon: Warum jede Komponente unverzichtbar ist</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
-                <!-- Column 1 -->
                 <div class="space-y-4">
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-500"></span>Natriumbicarbonat (Kaiser-Natron)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Das chemische Fundament des osmotischen Bades. Es stellt den optimalen therapeutischen pH-Wert von ca. 8,5 stabil ein. Auf der Hautoberfläche neutralisiert es austretende Säureionen augenblicklich und regt die Talgdrüsen zur natürlichen Lipid-Rückfettung an.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Das chemische Fundament des osmotischen Bades. Es stellt den optimalen therapeutischen pH-Wert von ca. 8,5 stabil ein und regt die Talgdrüsen zur natürlichen Lipid-Rückfettung an.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-500"></span>Magnesiumchlorid</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Eine exzellent wasserlösliche Magnesiumform. Die freien Magnesiumionen überwinden die Hautbarriere gezielt über die Schweißkanäle und Haarfollikel (Shunt-Weg). Sie entspannen die Muskulatur und liefern den Zellen essentielle Energie für die Entgiftung.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Eine exzellent wasserlösliche Magnesiumform. Die freien Magnesiumionen überwinden die Hautbarriere gezielt über die Schweißkanäle und Haarfollikel (Shunt-Weg).</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-indigo-400"></span>Magnesiumsulfat (Epsom-Salz)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Liefert wertvolle Sulfat-Ionen. Diese werden transdermal resorbiert und unterstützen in der Leber die sogenannte Phase-II-Entgiftung (Sulfatierung), über welche hormonelle Reste, Medikamente und Umweltchemikalien wasserlöslich und ausscheidbar gemacht werden.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Liefert wertvolle Sulfat-Ionen. Diese werden transdermal resorbiert und unterstützen in der Leber die sogenannte Phase-II-Entgiftung (Sulfatierung).</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span>Keltisches Meersalz</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Dieses unraffinierte, handgeerntete Salz liefert über 80 essentielle Spurenelemente und Mineralien. Es strukturiert das Badewasser und schützt den Körper davor, bei der langen Badedauer wichtige Elektrolyte an das Wasser zu verlieren (Auslaugschutz).
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Dieses unraffinierte, handgeerntete Salz liefert über 80 essentielle Spurenelemente und Mineralien. Es schützt den Körper vor Elektrolytverlust.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-600"></span>Natriumcarbonat (Waschsoda)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Dient als hochpräzise dosierter Alkalitäts-Verstärker. Es stellt sicher, dass das Badewasser auch bei hoher Säurelast des Badenden konstant im basischen Wirkbereich von pH 8,5 verbleibt, ohne chemisch abzukippen.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Dient als hochpräzise dosierter Alkalitäts-Verstärker. Es stellt sicher, dass das Badewasser auch bei hoher Säurelast konstant im Wirkbereich von pH 8,5 verbleibt.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Zeolith-Klinoptilolith</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Ein hochaktives Vulkangestein-Pulver, das wie ein molekulares Sieb wirkt. Es zieht im Wasser gelöste, positiv geladene Schwermetall-Kationen (z.B. Blei, Quecksilber) wie ein Magnet an und bindet sie dauerhaft im Wasser, um eine Re-Absorption zu verhindern.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Ein hochaktives Vulkangestein-Pulver, das wie ein molekulares Sieb wirkt. Es zieht im Wasser gelöste Schwermetall-Kationen magnetisch an und bindet sie dauerhaft.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-600"></span>Calcium-Bentonit (Tonerde)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Diese ultrafeine Heilerde besitzt eine enorme Bindekraft für organische Schadstoffe, Pestizide und Toxine. Sie bildet eine hauchfeine Schutzschicht im Wasser und sorgt für ein wunderbar seidiges Gefühl auf der Haut.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Diese ultrafeine Heilerde besitzt eine enorme Bindekraft für organische Schadstoffe, Pestizide und Toxine und sorgt für ein seidiges Hautgefühl.</p>
                     </div>
                 </div>
 
-                <!-- Column 2 -->
-                <div class="space-y-4 flex flex-col justify-between">
+                <div class="space-y-4">
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>Fucus vesiculosus (Blasentang)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Eine Meeresalge, reich an biologischen Alginaten. Alginate quellen im Wasser auf und schließen gelöste Giftstoffe chelatartig ein. Sie liefert organisch gebundenes Jod und Vitamine, die die zelluläre Mikrozirkulation im Hautgewebe triggern.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Eine Meeresalge, reich an biologischen Alginaten. Alginate quellen auf und schließen gelöste Giftstoffe chelatartig ein.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-500"></span>Tween 20 (Pharma-Emulgator)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Ein extrem hautschonender, reizfreier Lösungsvermittler. Er sorgt dafür, dass sich die wertvollen ätherischen Öle homogen als milchige Feinstemulsion im Badewasser verteilen, anstatt ungelöst als Reizfilm an der Oberfläche zu schwimmen.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Ein hautschonender, reizfreier Lösungsvermittler. Er sorgt dafür, dass sich die ätherischen Öle homogen als Feinstemulsion im Badewasser verteilen.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-500"></span>Zypressenöl</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Das wichtigste ätherische Öl in der Entstauungstherapie. Es wirkt venentonisierend und gefäßschützend. Es aktiviert den venös-lymphatischen Rückstrom und entlastet schwere, geschwollene Beine fühlbar.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Das wichtigste ätherische Öl in der Entstauungstherapie. Es wirkt venentonisierend und aktiviert den venös-lymphatischen Rückstrom.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-yellow-500"></span>Wacholderbeerenöl</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Die sichere, wirksame Alternative zu phototoxischen Zitrusölen. Wacholderbeerenöl ist völlig frei von Furocoumarinen, regt die Nieren-Reflexbahnen der Haut an und fördert die systemische Gewebeentwässerung massiv.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Die sichere Alternative zu Zitrusölen. Völlig frei von Furocoumarinen, regt es die Nieren-Reflexbahnen der Haut an.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-red-400"></span>Rosmarinöl (CT Cineol)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Ein starker Aktivator der arteriellen Mikrozirkulation. Durch die Anregung des feinen Kapillarnetzes der Haut werden die Schadstoffe aus den tieferen Geweben schneller an die Ausscheidungspforten transportiert.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Ein starker Aktivator der Mikrozirkulation. Schadstoffe aus den tieferen Geweben werden schneller an die Ausscheidungspforten transportiert.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-500"></span>Lavendelöl</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Aktiviert den Parasympathikus – Ihren Entspannungsnerv. Da tiefgreifende Entgiftungs- und Regenerationsprozesse im gestressten Zustand blockiert sind, ist die Entspannungsinduktion durch echten Lavendel eine therapeutische Notwendigkeit.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Aktiviert den Parasympathikus. Da Entgiftungsprozesse im gestressten Zustand blockiert sind, ist diese Entspannungsinduktion eine Notwendigkeit.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-slate-400"></span>Fumed Silica (Kieselsäure)</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Ein hochdisperses Siliciumdioxid, das als flüssigkeitsabsorbierender Schwamm agiert. Es bindet die flüssigen ätherischen Öle homogen in eine trockene, rieselfähige Matrix und schützt die empfindlichen Pflanzenstoffe vor Oxidation und Licht.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Ein hochdisperses Siliciumdioxid, das als flüssigkeitsabsorbierender Schwamm agiert und die ätherischen Öle homogen in eine trockene Matrix bindet.</p>
                     </div>
-
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
                         <h4 class="font-bold text-slate-900 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-700"></span>Spezial-Beutelverpackung</h4>
-                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                            Ein Standbodenbeutel aus mehrschichtiger Aluminium-Kraftpapier-Folie mit dicker Ziplock-Heißsiegelnaht. Er blockiert das Eindringen von Luftfeuchtigkeit und UV-Licht hermetisch und verhindert die Zersetzung der Wirkstoffe.
-                        </p>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">Standbodenbeutel aus mehrschichtiger Aluminium-Kraftpapier-Folie. Blockiert Luftfeuchtigkeit und UV-Licht hermetisch.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TAB 2: Anwendungsempfehlung -->
     <section id="tab-content-2" class="tab-pane hidden space-y-8">
         <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <h2 class="text-xl sm:text-2xl font-bold text-slate-900">2. Therapeutisches Anwendungsprotokoll</h2>
                 <p class="text-slate-500 text-xs sm:text-sm mt-1">Spezifikation zur Badebehandlung, manuellen Lymphstimulation und optimalen Flüssigkeitszufuhr.</p>
             </div>
-            <button onclick="window.print()" class="no-print bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition-all text-xs flex items-center gap-1.5 shadow-md">
-                <i class="fa-solid fa-print"></i> Protokoll drucken
-            </button>
+            <button onclick="window.print()" class="no-print bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-md"><i class="fa-solid fa-print"></i> Protokoll drucken</button>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
-                <div class="w-10 h-10 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg">
-                    <i class="fa-solid fa-temperature-three-quarters"></i>
-                </div>
+                <div class="w-10 h-10 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg"><i class="fa-solid fa-temperature-three-quarters"></i></div>
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Wassertemperatur</h4>
                 <p class="text-lg sm:text-xl font-black text-slate-900 mt-1">36,5°C - 37,5°C</p>
                 <p class="text-[10px] text-slate-500 mt-1">Ergibt die thermoneutrale Zone</p>
             </div>
-
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
-                <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg">
-                    <i class="fa-solid fa-clock"></i>
-                </div>
+                <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg"><i class="fa-solid fa-clock"></i></div>
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Mindest-Badedauer</h4>
                 <p class="text-lg sm:text-xl font-black text-slate-900 mt-1" id="val-protocol-duration">120 Minuten</p>
                 <p class="text-[10px] text-slate-500 mt-1">Hornschicht-Quellung ab 30 Min.</p>
             </div>
-
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
-                <div class="w-10 h-10 bg-teal-50 text-teal-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg">
-                    <i class="fa-solid fa-whiskey-glass"></i>
-                </div>
+                <div class="w-10 h-10 bg-teal-50 text-teal-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg"><i class="fa-solid fa-whiskey-glass"></i></div>
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Trinkmenge</h4>
                 <p class="text-lg sm:text-xl font-black text-slate-900 mt-1">1,5 Liter</p>
                 <p class="text-[10px] text-slate-500 mt-1">Kontinuierliche Schlucke während des Bades</p>
             </div>
-
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm text-center">
-                <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg">
-                    <i class="fa-solid fa-calendar-days"></i>
-                </div>
+                <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-3 text-lg"><i class="fa-solid fa-calendar-days"></i></div>
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Wiederholung</h4>
                 <p class="text-lg sm:text-xl font-black text-slate-900 mt-1">1 - 2x wöchentlich</p>
                 <p class="text-[10px] text-slate-500 mt-1">Gibt ausreichend Zeit zur Geweberegeneration</p>
@@ -413,31 +268,18 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- SVG Human Silhouette -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div>
-                    <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2 mb-2">
-                        <i class="fa-solid fa-child-spray text-indigo-500"></i>
-                        Ganzkörper-Lymphfluss-Simulator (Mit Richtungs-Pfeilen)
-                    </h3>
-                    <p class="text-slate-600 text-xs mb-4">
-                        Klicken Sie auf die Lymphknoten (farbige Kreise), um das manuelle Griffmuster anzuzeigen. Die <strong>visuellen Pfeile und Linien</strong> zeigen die unumstößliche Fließrichtung an, in die gebürstet werden muss, um Fehler und Blockaden strikt zu vermeiden.
-                    </p>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2 mb-2"><i class="fa-solid fa-child-spray text-indigo-500"></i> Ganzkörper-Lymphfluss-Simulator</h3>
+                    <p class="text-slate-600 text-xs mb-4">Klicken Sie auf die Lymphknoten (farbige Kreise), um das manuelle Griffmuster anzuzeigen. Die <strong>visuellen Pfeile</strong> zeigen die Fließrichtung an, in die gebürstet werden muss.</p>
                 </div>
-
                 <div class="bg-slate-900 p-4 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden h-[340px]">
                     <svg viewBox="0 0 200 400" class="w-full h-full max-w-[170px]">
                         <defs>
-                            <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2dd4bf"/>
-                            </marker>
-                            <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fbbf24"/>
-                            </marker>
+                            <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2dd4bf"/></marker>
+                            <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fbbf24"/></marker>
                         </defs>
-
                         <path d="M100,30 C110,30 115,40 115,50 C115,60 110,65 100,65 C90,65 85,60 85,50 C85,40 90,30 100,30 Z M100,65 C115,65 125,70 130,85 L145,160 C148,175 140,180 135,180 C130,180 128,172 125,160 L115,110 L115,220 C115,230 110,240 110,260 L120,370 C121,385 110,385 105,385 C100,385 98,375 97,350 L95,270 L93,350 C92,375 90,385 85,385 C80,385 69,385 70,370 L80,260 C80,240 75,230 75,220 L75,110 L65,160 C62,172 60,180 55,180 C50,180 42,175 45,160 L60,85 C65,70 75,65 100,65 Z" fill="#1e293b" stroke="#334155" stroke-width="2"/>
-                        
                         <path id="path-leg-l" d="M85,350 L81,280 L85,225" fill="none" stroke="#2dd4bf" stroke-width="2.5" class="flow-path-up" marker-end="url(#arrow-teal)"/>
                         <path id="path-leg-r" d="M115,350 L119,280 L115,225" fill="none" stroke="#2dd4bf" stroke-width="2.5" class="flow-path-up" marker-end="url(#arrow-teal)"/>
                         <path id="path-lower-torso-l" d="M90,175 L86,215" fill="none" stroke="#fbbf24" stroke-width="2.5" class="flow-path-down" marker-end="url(#arrow-amber)"/>
@@ -448,151 +290,94 @@
                         <path id="path-arm-r" d="M150,150 L137,115 L128,112" fill="none" stroke="#2dd4bf" stroke-width="2.5" class="flow-path-up" marker-end="url(#arrow-teal)"/>
                         <path id="path-neck-l" d="M93,65 L95,90" fill="none" stroke="#fbbf24" stroke-width="2.5" class="flow-path-down" marker-end="url(#arrow-amber)"/>
                         <path id="path-neck-r" d="M107,65 L105,90" fill="none" stroke="#fbbf24" stroke-width="2.5" class="flow-path-down" marker-end="url(#arrow-amber)"/>
-
                         <circle cx="100" cy="95" r="5.5" fill="#f87171" class="lymph-node cursor-pointer border border-white" onclick="highlightRegion('terminus')"/>
                         <circle cx="75" cy="110" r="5" fill="#2dd4bf" class="lymph-node cursor-pointer border border-white" onclick="highlightRegion('axillary')"/>
                         <circle cx="125" cy="110" r="5" fill="#2dd4bf" class="lymph-node cursor-pointer border border-white" onclick="highlightRegion('axillary')"/>
                         <circle cx="85" cy="220" r="5" fill="#fbbf24" class="lymph-node cursor-pointer border border-white" onclick="highlightRegion('inguinal')"/>
                         <circle cx="115" cy="220" r="5" fill="#fbbf24" class="lymph-node cursor-pointer border border-white" onclick="highlightRegion('inguinal')"/>
                     </svg>
-
                     <div class="absolute bottom-2 left-2 right-2 bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 text-center text-[10px] text-slate-300">
                         <span class="font-bold text-teal-400">AKTIVES ZIEL:</span> <span id="visual-hud-label">Klicken Sie auf die farbigen Knoten für Griffmuster</span>
                     </div>
                 </div>
-
-                <div class="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-100 text-[10px] text-slate-500 leading-relaxed">
-                    <span class="font-bold text-slate-700">Legende:</span> 
-                    <span class="text-teal-500 font-semibold">Grüne Linien & Aufwärts-Pfeile (▲)</span> = Aufwärts bürsten (zum Terminus/Achsel). <br>
-                    <span class="text-amber-500 font-semibold">Gelbe Linien & Abwärts-Pfeile (▼)</span> = Abwärts bürsten (unterhalb Bauchnabel zur Leiste / Hals zum Terminus).
-                </div>
             </div>
 
-            <!-- Hydration Drinks -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2">
-                    <i class="fa-solid fa-bottle-water text-indigo-500"></i>
-                    Intra-balneologische Hydratation (1,5 Liter Drink-Protokolle)
-                </h3>
-                <p class="text-slate-600 text-xs leading-relaxed">
-                    Wählen Sie zwischen zwei hocheffizienten Mineralstoff-Trinkkuren, um den starken Flüssigkeitsverlust auszugleichen und die Ausleitung biologisch abzusichern:
-                </p>
-
+                <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2"><i class="fa-solid fa-bottle-water text-indigo-500"></i> Intra-balneologische Hydratation (1,5L Drink-Protokolle)</h3>
                 <div class="flex border-b border-slate-200 text-xs no-print">
-                    <button id="btn-drink-1" onclick="switchDrinkRecipe(1)" class="py-2 px-4 border-b-2 border-indigo-600 text-indigo-600 font-bold">
-                        Rezept 1: Citrus-SGLT-1-Kur (Klassik)
-                    </button>
-                    <button id="btn-drink-2" onclick="switchDrinkRecipe(2)" class="py-2 px-4 border-b-2 border-transparent text-slate-500 hover:text-indigo-600 font-medium">
-                        Rezept 2: Supermarkt Grüntee-Ingwer (Alternative)
-                    </button>
+                    <button id="btn-drink-1" onclick="switchDrinkRecipe(1)" class="py-2 px-4 border-b-2 border-indigo-600 text-indigo-600 font-bold">Citrus-SGLT-1-Kur</button>
+                    <button id="btn-drink-2" onclick="switchDrinkRecipe(2)" class="py-2 px-4 border-b-2 border-transparent text-slate-500 hover:text-indigo-600 font-medium">Grüntee-Ingwer-Boost</button>
                 </div>
-
                 <div id="drink-recipe-1" class="space-y-3 pt-2">
-                    <h4 class="font-bold text-xs text-indigo-950 uppercase tracking-wider">Citrus-SGLT-1-Kur (Hyperosmotisch & Aktivierend)</h4>
-                    <p class="text-[11px] text-slate-500 leading-relaxed">
-                        Die ultimative Kur. Die native Glucose des rohen Honigs beschleunigt über den SGLT-1 Co-Transporter im Dünndarm die Aufnahme von Wasser und Elektrolyten um das Dreifache.
-                    </p>
+                    <h4 class="font-bold text-xs text-indigo-950 uppercase tracking-wider">Citrus-SGLT-1-Kur (Klassik)</h4>
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2 text-xs">
-                        <div class="flex justify-between"><strong>1000 ml</strong> <span class="text-slate-500">Mineralarmes, stilles Wasser</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>350 ml</strong> <span class="text-slate-500">Frischer Orangensaft (bioverfügbares Kalium)</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>150 ml</strong> <span class="text-slate-500">Frischer Zitronensaft (Pufferung durch Citrate)</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>3 g</strong> <span class="text-slate-500">Keltisches Meersalz (Zellmembran-Schutz)</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>2 EL</strong> <span class="text-slate-500">Roher Naturhonig (SGLT-1 Absorptionsmotor)</span></div>
+                        <div class="flex justify-between"><strong>1000 ml</strong> <span>Mineralarmes, stilles Wasser</span></div>
+                        <div class="flex justify-between"><strong>350 ml</strong> <span>Frischer Orangensaft (Kalium)</span></div>
+                        <div class="flex justify-between"><strong>150 ml</strong> <span>Frischer Zitronensaft (Citrate)</span></div>
+                        <div class="flex justify-between"><strong>3 g</strong> <span>Keltisches Meersalz</span></div>
+                        <div class="flex justify-between"><strong>2 EL</strong> <span>Roher Naturhonig (SGLT-1 Motor)</span></div>
                     </div>
                 </div>
-
                 <div id="drink-recipe-2" class="space-y-3 pt-2 hidden">
-                    <h4 class="font-bold text-xs text-indigo-950 uppercase tracking-wider">Grüntee-Ingwer-Zitronen-Boost (Alltagstauglich)</h4>
-                    <p class="text-[11px] text-slate-500 leading-relaxed">
-                        Die praktische, leicht zugängliche Alternative aus dem Supermarkt. Grüner Tee liefert wirksame Polyphenole (EGCG) zur Entgiftung, während Ingwer die Durchblutung anregt.
-                    </p>
+                    <h4 class="font-bold text-xs text-indigo-950 uppercase tracking-wider">Grüntee-Ingwer-Zitronen-Boost (Alternative)</h4>
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2 text-xs">
-                        <div class="flex justify-between"><strong>1000 ml</strong> <span class="text-slate-500">Frisch gebrühter Grüner Tee (Polyphenole & Nieren-Support)</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>400 ml</strong> <span class="text-slate-500">Stilles Trinkwasser (optimaler Durchfluss)</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>50 g / Saft</strong> <span class="text-slate-500">Frischer Ingwer (gerieben / ausgepresst)</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>3 g</strong> <span class="text-slate-500">Haushaltsübliches jodfreies Speisesalz oder Meersalz</span></div>
-                        <div class="flex justify-between pt-1.5 border-t border-slate-200/60"><strong>2 EL</strong> <span class="text-slate-500">Naturhonig oder haushaltsüblicher brauner Zucker</span></div>
+                        <div class="flex justify-between"><strong>1000 ml</strong> <span>Frisch gebrühter Grüner Tee (EGCG)</span></div>
+                        <div class="flex justify-between"><strong>400 ml</strong> <span>Stilles Trinkwasser</span></div>
+                        <div class="flex justify-between"><strong>50 g / Saft</strong> <span>Frischer Ingwer (ausgepresst)</span></div>
+                        <div class="flex justify-between"><strong>3 g</strong> <span>Meersalz oder Speisesalz</span></div>
+                        <div class="flex justify-between"><strong>2 EL</strong> <span>Naturhonig oder brauner Zucker</span></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Post-Bath laws -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-            <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2">
-                <i class="fa-solid fa-hourglass-start text-indigo-500"></i>
-                Die 3 goldenen Post-Balneopathischen Ruhegesetze
-            </h3>
-            
+            <h3 class="text-base sm:text-lg font-bold text-slate-950 flex items-center gap-2"><i class="fa-solid fa-hourglass-start text-indigo-500"></i> Die 3 goldenen Post-Balneopathischen Ruhegesetze</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xl sm:text-2xl font-black text-indigo-600">01</span>
-                        <h4 class="font-bold text-slate-900 text-sm mt-1 mb-2">No-Rinse Prinzip</h4>
-                        <p class="text-slate-600 text-xs leading-relaxed">
-                            Spülen Sie Ihren Körper nach dem Bad **unter keinen Umständen mit Leitungswasser ab**! Der alkalische Mineralfilm aus Carbonaten, Kieselsäuren und Algen bleibt auf der Haut liegen. Über diesen anhaltenden Ionen-Gradienten zieht der getrocknete Film auch nach dem Bad aktiv Säuren aus den ekkrinen Schweißdrüsen.
-                        </p>
-                    </div>
-                    <div class="mt-4 text-[10px] text-indigo-500 font-semibold uppercase">Nicht abspülen!</div>
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                    <span class="text-xl sm:text-2xl font-black text-indigo-600">01</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1 mb-2">No-Rinse Prinzip</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Spülen Sie Ihren Körper nach dem Bad **unter keinen Umständen mit Leitungswasser ab**! Der alkalische Mineralfilm bleibt auf der Haut liegen und zieht auch nach dem Bad aktiv Säuren aus den Drüsen.</p>
                 </div>
-
-                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xl sm:text-2xl font-black text-indigo-600">02</span>
-                        <h4 class="font-bold text-slate-900 text-sm mt-1 mb-2">Sanftes Abtupfen</h4>
-                        <p class="text-slate-600 text-xs leading-relaxed">
-                            Benutzen Sie ein weiches Handtuch und tupfen Sie die Haut nach dem Verlassen der Wanne nur ganz sachte ab. **Vermeiden Sie starkes Reiben oder Abrubbeln.** Durch zu starkes Reiben würden Sie den unsichtbaren Mineralfilm mechanisch abtragen und die Nachwirkung abrupt beenden.
-                        </p>
-                    </div>
-                    <div class="mt-4 text-[10px] text-indigo-500 font-semibold uppercase">Kein starkes Rubbeln</div>
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                    <span class="text-xl sm:text-2xl font-black text-indigo-600">02</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1 mb-2">Sanftes Abtupfen</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Benutzen Sie ein weiches Handtuch und tupfen Sie die Haut nach dem Verlassen der Wanne nur ganz sachte ab. **Vermeiden Sie starkes Reiben oder Abrubbeln.**</p>
                 </div>
-
-                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xl sm:text-2xl font-black text-indigo-600">03</span>
-                        <h4 class="font-bold text-slate-900 text-sm mt-1 mb-2">90 Minuten Pflegepause</h4>
-                        <p class="text-slate-600 text-xs leading-relaxed">
-                            Hüllen Sie sich in einen Bademantel und legen Sie sich für 90 Minuten hin. **Tragen Sie in dieser Zeit absolut keine Lotionen, Öle, Cremes oder Parfums auf.** Der basische Impuls zwingt die hauteigenen Talgdrüsen zur autonomen Selbstfettung. Erst nach Ablauf der 90 Minuten können Sie bei Bedarf trocken spannen und mit reinem Jojobaöl pflegen.
-                        </p>
-                    </div>
-                    <div class="mt-4 text-[10px] text-indigo-500 font-semibold uppercase">Autonome Rückfettung</div>
+                <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                    <span class="text-xl sm:text-2xl font-black text-indigo-600">03</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1 mb-2">90 Min. Pflegepause</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Hüllen Sie sich in einen Bademantel. **Tragen Sie absolut keine Lotionen, Öle, Cremes oder Parfums auf.** Der basische Impuls zwingt die Haut zur autonomen Selbstfettung.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TAB 3: Zutaten & Mengenrechner (SECURED) -->
     <section id="tab-content-3" class="tab-pane hidden space-y-8 admin-only">
         <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <h2 class="text-xl sm:text-2xl font-bold text-slate-900">3. Zutaten- und interaktiver Mengenrechner</h2>
                 <p class="text-slate-500 text-xs sm:text-sm mt-1">Echtzeit-Mengenberechnung angepasst an Ihr Wasservolumen und Beutel-Stückzahl.</p>
             </div>
-            <button onclick="window.print()" class="no-print bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition-all text-xs flex items-center gap-1.5 shadow-md">
-                <i class="fa-solid fa-print"></i> Mengenliste drucken
-            </button>
+            <button onclick="window.print()" class="no-print bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-md"><i class="fa-solid fa-print"></i> Mengenliste drucken</button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 no-print">
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
                 <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider" id="lbl-input-water">Ziel-Wassermenge (Liter)</label>
                 <div class="relative">
-                    <input type="number" id="input-water-volume" oninput="recalculate()" class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-semibold text-lg" value="150" min="5">
+                    <input type="number" id="input-water-volume" oninput="recalculate()" class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-300 font-semibold text-lg" value="150" min="5">
                     <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">L</span>
                 </div>
-                <p class="text-[10px] text-slate-400" id="lbl-desc-water">Vollbad Standard: 150 Liter</p>
             </div>
-
             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
                 <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Chargengröße (Anzahl Beutel)</label>
                 <div class="relative">
-                    <input type="number" id="input-batch-size" oninput="recalculate()" class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-semibold text-lg" value="1" min="1">
+                    <input type="number" id="input-batch-size" oninput="recalculate()" class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-300 font-semibold text-lg" value="1" min="1">
                     <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">Btl.</span>
                 </div>
-                <p class="text-[10px] text-slate-400">Wie viele Portionen möchten Sie auf einmal mischen?</p>
             </div>
-
-            <div class="bg-gradient-to-br from-indigo-950 to-indigo-900 text-white p-5 rounded-2xl shadow-md border border-indigo-800 flex flex-col justify-between">
+            <div class="bg-gradient-to-br from-indigo-950 to-indigo-900 text-white p-5 rounded-2xl shadow-md flex flex-col justify-between">
                 <div>
                     <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wider">Gesamtgewicht der Charge</h4>
                     <p class="text-2xl sm:text-3xl font-black mt-1 text-teal-300" id="val-total-batch-weight">1.019,5 g</p>
@@ -606,14 +391,8 @@
 
         <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <h3 class="font-bold text-slate-950 text-sm sm:text-base flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-indigo-500"></i>
-                    Skalierte Zusammensetzungs-Tabelle
-                </h3>
-                
-                <div class="flex items-center space-x-2">
-                    <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-full no-print" id="info-current-scale">Maßstab: 1.00x</span>
-                </div>
+                <h3 class="font-bold text-slate-950 text-sm sm:text-base flex items-center gap-2"><i class="fa-solid fa-list-check text-indigo-500"></i> Skalierte Zusammensetzungs-Tabelle</h3>
+                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-full no-print" id="info-current-scale">Maßstab: 1.00x</span>
             </div>
             <div class="overflow-x-auto font-medium">
                 <table class="w-full text-left border-collapse">
@@ -631,7 +410,6 @@
         </div>
     </section>
 
-    <!-- TAB 4: Kostenkalkulation (SECURED) -->
     <section id="tab-content-4" class="tab-pane hidden space-y-8 admin-only">
         <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
@@ -639,12 +417,8 @@
                 <p class="text-slate-500 text-xs sm:text-sm mt-1">Händler-Einkaufspreise sowie Verpackungskosten verwalten und reale Selbstkosten ermitteln.</p>
             </div>
             <div class="flex gap-2 no-print">
-                <button onclick="resetCostsToDefaults()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-xl transition-all text-xs flex items-center gap-1.5 shadow-sm">
-                    <i class="fa-solid fa-rotate-left"></i> Standardpreise
-                </button>
-                <button onclick="window.print()" class="bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition-all text-xs flex items-center gap-1.5 shadow-md">
-                    <i class="fa-solid fa-print"></i> Kostenanalyse drucken
-                </button>
+                <button onclick="resetCostsToDefaults()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-sm"><i class="fa-solid fa-rotate-left"></i> Standardpreise</button>
+                <button onclick="window.print()" class="bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-md"><i class="fa-solid fa-print"></i> Kostenanalyse drucken</button>
             </div>
         </div>
 
@@ -655,51 +429,34 @@
                     <p class="text-2xl sm:text-3xl font-black mt-1 text-slate-900" id="val-cost-per-unit">0,00 THB</p>
                     <p class="text-xs text-slate-400 mt-1" id="val-cost-per-unit-converted">~ 0,00 EUR</p>
                 </div>
-                <div class="p-3.5 bg-indigo-50 text-indigo-600 rounded-2xl text-xl">
-                    <i class="fa-solid fa-box"></i>
-                </div>
+                <div class="p-3.5 bg-indigo-50 text-indigo-600 rounded-2xl text-xl"><i class="fa-solid fa-box"></i></div>
             </div>
-
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Gesamtkosten der Charge</h4>
                     <p class="text-2xl sm:text-3xl font-black mt-1 text-indigo-600" id="val-cost-total-batch">0,00 THB</p>
                     <p class="text-xs text-indigo-300 mt-1" id="val-cost-total-batch-converted">~ 0,00 EUR</p>
                 </div>
-                <div class="p-3.5 bg-emerald-50 text-emerald-600 rounded-2xl text-xl">
-                    <i class="fa-solid fa-money-bill-wave"></i>
-                </div>
+                <div class="p-3.5 bg-emerald-50 text-emerald-600 rounded-2xl text-xl"><i class="fa-solid fa-money-bill-wave"></i></div>
             </div>
-
             <div class="bg-gradient-to-br from-indigo-950 to-indigo-900 text-white p-6 rounded-2xl shadow-md border border-indigo-800">
                 <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-2">Haupt-Kostentreiber</h4>
                 <div class="space-y-1 text-xs sm:text-sm font-medium">
-                    <div class="flex justify-between items-center">
-                        <span id="cost-driver-1-name">Laden...</span>
-                        <span class="text-teal-300 font-bold" id="cost-driver-1-percent">0%</span>
-                    </div>
-                    <div class="flex justify-between items-center text-[11px] text-slate-300">
-                        <span id="cost-driver-2-name">Laden...</span>
-                        <span class="font-bold" id="cost-driver-2-percent">0%</span>
-                    </div>
+                    <div class="flex justify-between items-center"><span id="cost-driver-1-name">Laden...</span><span class="text-teal-300 font-bold" id="cost-driver-1-percent">0%</span></div>
+                    <div class="flex justify-between items-center text-[11px] text-slate-300"><span id="cost-driver-2-name">Laden...</span><span class="font-bold" id="cost-driver-2-percent">0%</span></div>
                 </div>
             </div>
         </div>
 
         <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200">
-                <h3 class="font-bold text-slate-950 text-sm sm:text-base flex items-center gap-2">
-                    <i class="fa-solid fa-file-invoice-dollar text-indigo-500"></i>
-                    Händler-Einkaufspreise & Kalkulations-Matrix (Realdaten geladen)
-                </h3>
-            </div>
+            <div class="px-6 py-4 bg-slate-50 border-b border-slate-200"><h3 class="font-bold text-slate-950 text-sm sm:text-base-flex items-center gap-2"><i class="fa-solid fa-file-invoice-dollar text-indigo-500"></i> Händler-Einkaufspreise & Kalkulations-Matrix (Realdaten geladen)</h3></div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse font-medium">
                     <thead>
                         <tr class="bg-slate-100/50 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-wider">
                             <th class="px-4 sm:px-6 py-4">Inhaltsstoff / Verpackung</th>
                             <th class="px-4 sm:px-6 py-4 text-right">Bedarf (Charge)</th>
-                            <th class="px-4 sm:px-6 py-4">Einkaufspreis (Händler)</th>
+                            <th class="px-4 sm:px-6 py-4">Einkaufspreis</th>
                             <th class="px-4 sm:px-6 py-4">Gebindegröße</th>
                             <th class="px-4 sm:px-6 py-4 text-right">Kosten (Portion)</th>
                             <th class="px-4 sm:px-6 py-4 text-right bg-indigo-50/40 text-indigo-950">Kosten (Charge)</th>
@@ -711,165 +468,57 @@
         </div>
     </section>
 
-    <!-- TAB 5: Labor-Zubereitung (SECURED) -->
     <section id="tab-content-5" class="tab-pane hidden space-y-8 admin-only">
-        <div class="border-b border-slate-200 pb-4">
-            <h2 class="text-xl sm:text-2xl font-bold text-slate-900">5. Galenische Laborzubereitung (Split-Verfahren)</h2>
-            <p class="text-slate-500 text-xs sm:text-sm mt-1">Strikte physikalische Trennung der Phasen zur Eliminierung von Wirkstoff-Entmischung.</p>
-        </div>
-
+        <div class="border-b border-slate-200 pb-4"><h2 class="text-xl sm:text-2xl font-bold text-slate-900">5. Galenische Laborzubereitung (Split-Verfahren)</h2></div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 no-print">
             <div class="bg-red-50 border-l-4 border-red-500 text-red-900 p-5 rounded-r-2xl shadow-sm flex space-x-4">
                 <div class="text-red-600 text-2xl"><i class="fa-solid fa-mask-face"></i></div>
                 <div>
                     <h4 class="font-bold text-xs sm:text-sm uppercase tracking-wider mb-1">Arbeitsschutz Phase C (Kieselsäure)</h4>
-                    <p class="text-[11px] sm:text-xs leading-relaxed text-red-800">
-                        Aufgrund der mikroskopischen Partikelgröße staubt Fumed Silica extrem stark. Das Einatmen führt zu mechanischen Atembeschwerden. Tragen Sie beim Abwiegen und Mischen zwingend eine <strong>FFP2-Atemschutzmaske</strong> und eine <strong>Schutzbrille</strong>. Nach dem Kneten mit den Ölen ist die Staubgefahr gebannt!
-                    </p>
+                    <p class="text-[11px] sm:text-xs leading-relaxed text-red-800">Tragen Sie beim Abwiegen und Mischen zwingend eine <strong>FFP2-Atemschutzmaske</strong> und eine <strong>Schutzbrille</strong> aufgrund extremer Staubgefahr!</p>
                 </div>
             </div>
-
             <div class="bg-amber-50 border-l-4 border-amber-500 text-amber-900 p-5 rounded-r-2xl shadow-sm flex space-x-4">
                 <div class="text-amber-600 text-2xl"><i class="fa-solid fa-droplet-slash"></i></div>
                 <div>
                     <h4 class="font-bold text-xs sm:text-sm uppercase tracking-wider mb-1">Hygroskopische Stabilität</h4>
-                    <p class="text-[11px] sm:text-xs leading-relaxed text-amber-800">
-                        Magnesiumchlorid zieht Feuchtigkeit extrem an. Lassen Sie Rohstoffe im Labor nicht offen stehen. Sobald Phase C homogen untergemischt ist, füllen und versiegeln Sie das Pulver zügig in die Alu-Kraftpapierbeutel, um Verklumpung zu verhindern.
-                    </p>
+                    <p class="text-[11px] sm:text-xs leading-relaxed text-amber-800">Magnesiumchlorid zieht Feuchtigkeit extrem an. Beutel nach Zudosierung zügig verschweißen.</p>
                 </div>
             </div>
         </div>
 
         <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-8">
-            <div class="flex items-center justify-between no-print">
-                <h3 class="font-bold text-slate-950 text-sm sm:text-base flex items-center gap-2">
-                    <i class="fa-solid fa-clipboard-list text-indigo-500"></i>
-                    Phasengenaue Checkliste (Werte passen sich automatisch der Skalierung an)
-                </h3>
-                <button onclick="resetPrepSteps()" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">Checkliste zurücksetzen</button>
-            </div>
-
             <div class="space-y-6 text-slate-700 text-xs sm:text-sm">
-                <!-- Phase A -->
                 <div class="space-y-4">
-                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2">
-                        <span class="px-2.5 py-1 bg-indigo-100 text-indigo-800 text-[10px] font-bold rounded">PHASE A</span>
-                        <h4 class="font-bold text-slate-900">Feststoff-Skelettierung (Mineralische Basis)</h4>
-                    </div>
-                    
+                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2"><span class="px-2.5 py-1 bg-indigo-100 text-indigo-800 text-[10px] font-bold rounded">PHASE A</span><h4 class="font-bold text-slate-900">Feststoff-Skelettierung</h4></div>
                     <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Salze & Mineralskelett einwiegen:</strong> Wiegen Sie nacheinander für die Gesamtcharge von <span class="font-bold text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded" id="calc-btl-count-1">1 Beutel</span> folgende Mengen ein:
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-bicarb">500,0 g</span> Natriumbicarbonat, 
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-mgcl">150,0 g</span> Magnesiumchlorid, 
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-mgso4">100,0 g</span> Magnesiumsulfat, 
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-salt">100,0 g</span> Keltisches Meersalz und 
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-carb">50,0 g</span> Natriumcarbonat in eine große Schüssel ein.
-                        </span>
+                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600">
+                        <span><strong>Mineralskelett einwiegen:</strong> Wiegen Sie für die Charge von <span class="font-bold text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded" id="calc-btl-count-1">1 Beutel</span> ein: <span id="calc-a-bicarb">500g</span> Bicarb, <span id="calc-a-mgcl">150g</span> MgCl2, <span id="calc-a-mgso4">100g</span> MgSO4, <span id="calc-a-salt">100g</span> Meersalz, <span id="calc-a-carb">50g</span> Soda.</span>
                     </label>
-
                     <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Mineralsalze homogenisieren:</strong> Mischen Sie die kristallinen Mineralsalze für mindestens 5 Minuten intensiv mechanisch durch, um eine homogene Kornverteilung zu erreichen.
-                        </span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Adsorber & Alge zufügen:</strong> Geben Sie anschließend 
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-zeo">50,0 g</span> Zeolith-Klinoptilolith, 
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-bent">30,0 g</span> Calcium-Bentonit und 
-                            <span class="font-extrabold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded" id="calc-a-fucus">15,0 g</span> Blasentang-Pulver hinzu. Erneut intensiv mischen, bis eine vollkommen gleichmäßige Pulvermatrix vorliegt.
-                        </span>
+                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600">
+                        <span><strong>Adsorber zufügen:</strong> Geben Sie <span id="calc-a-zeo">50g</span> Zeolith, <span id="calc-a-bent">30g</span> Bentonit und <span id="calc-a-fucus">15g</span> Blasentang hinzu. Homogenisieren.</span>
                     </label>
                 </div>
-
-                <!-- Phase B -->
                 <div class="space-y-4">
-                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2">
-                        <span class="px-2.5 py-1 bg-teal-100 text-teal-800 text-[10px] font-bold rounded">PHASE B</span>
-                        <h4 class="font-bold text-slate-900">Solubilisierung (Phytogene Aromaphase)</h4>
-                    </div>
-                    
+                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2"><span class="px-2.5 py-1 bg-teal-100 text-teal-800 text-[10px] font-bold rounded">PHASE B</span><h4 class="font-bold text-slate-900">Solubilisierung</h4></div>
                     <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Emulgator Tween 20 vorlegen:</strong> Wiegen Sie exakt 
-                            <span class="font-extrabold text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded" id="calc-b-tween">6,0 g</span> Tween 20 ein.
-                        </span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Ätherische Öle zudosieren (nach Gewicht):</strong> Wiegen Sie das Zypressenöl 
-                            (<span class="font-semibold text-teal-700" id="calc-b-cypress">3,0 g</span>), Wacholderbeerenöl 
-                            (<span class="font-semibold text-teal-700" id="calc-b-juniper">2,0 g</span>), Rosmarinöl 
-                            (<span class="font-semibold text-teal-700" id="calc-b-rosemary">2,0 g</span>) und Lavendelöl 
-                            (<span class="font-semibold text-teal-700" id="calc-b-lavender">1,5 g</span>) präzise hinzu.
-                        </span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Mischvorgang:</strong> Rühren Sie Phase B für 8 bis 10 Minuten ohne Hitze, bis eine absolut klare, flüssige Phase entstanden ist.
-                        </span>
+                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600">
+                        <span>Wiegen Sie <span id="calc-b-tween">6g</span> Tween 20 vor, zudosieren: Zypresse (<span id="calc-b-cypress">3g</span>), Wacholderbeere (<span id="calc-b-juniper">2g</span>), Rosmarin (<span id="calc-b-rosemary">2g</span>), Lavendel (<span id="calc-b-lavender">1,5g</span>). Klar rühren.</span>
                     </label>
                 </div>
-
-                <!-- Phase C -->
                 <div class="space-y-4">
-                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2">
-                        <span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[10px] font-bold rounded">PHASE C</span>
-                        <h4 class="font-bold text-slate-900">Trägermatrix (Das Fumed-Silica-Gerüst)</h4>
-                    </div>
-                    
+                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2"><span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[10px] font-bold rounded">PHASE C</span><h4 class="font-bold text-slate-900">Trägermatrix</h4></div>
                     <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Kieselsäure vorlegen (FFP2 Maske zwingend!):</strong> Wiegen Sie exakt 
-                            <span class="font-extrabold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded" id="calc-c-silica">10,0 g</span> Fumed Silica vorsichtig in einen verschließbaren 3L-Ziplockbeutel ein.
-                        </span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Flüssigkeit einkneten:</strong> Gießen Sie die flüssige Phase B rasch direkt auf die Kieselsäure. Verschließen Sie den Beutel sofort hermetisch und kneten Sie ihn 3 bis 5 Minuten intensiv durch, bis eine trockene, rieselfähige Matrix entsteht.
-                        </span>
+                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600">
+                        <span><span id="calc-c-silica">10g</span> Fumed Silica vorlegen, flüssige Phase B dazugeben, im Ziplock-Beutel staubfrei trocken einkneten.</span>
                     </label>
                 </div>
-
-                <!-- Split Packing -->
                 <div class="space-y-4">
-                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2">
-                        <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded">FINISH</span>
-                        <h4 class="font-bold text-slate-900">Die Neue Zwei-Phasen-Einzeldosierung (Spaltung)</h4>
-                    </div>
-                    
+                    <div class="flex items-center space-x-2 border-b border-slate-100 pb-2"><span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded">FINISH</span><h4 class="font-bold text-slate-900">Zwei-Phasen-Einzeldosierung</h4></div>
                     <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Phase A portioniert abfüllen:</strong> Wiegen Sie in jeden einzelnen Beutel exakt <span class="font-extrabold text-indigo-950 bg-indigo-100 px-2 py-0.5 rounded" id="calc-split-weight-a">995,0 g</span> der mineralischen Trockenmischung (Phase A) ab.
-                        </span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Phase C (Duft-Kappe) zudosieren:</strong> Wiegen Sie anschließend in jeden bereits befüllten Beutel exakt <span class="font-extrabold text-teal-950 bg-teal-100 px-2 py-0.5 rounded" id="calc-split-weight-c">24,5 g</span> der aromatisierten Silica-Matrix (Phase C) einzeln als separate "Duft-Kappe" oben auf die Salze ab.
-                        </span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer select-none">
-                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                        <span class="leading-relaxed">
-                            <strong>Heißsiegelung:</strong> Verschweißen Sie die Ziplock-Kante der insgesamt <span class="font-extrabold text-slate-900 bg-slate-100 px-1.5 py-0.5 rounded" id="calc-finish-pack">1</span> Beutel sofort mit einem Folienschweißgerät bei 180°C bis 200°C.
-                        </span>
+                        <input type="checkbox" class="step-checkbox mt-1.5 w-4 h-4 rounded text-indigo-600">
+                        <span>Zuerst Phase A in den Beutel füllen (<span id="calc-split-weight-a">995g</span> Gesamtcharge), danach Phase C (<span id="calc-split-weight-c">24,5g</span> Gesamtcharge) als obere Duft-Kappe aufsetzen. Insgesamt <span id="calc-finish-pack">1</span> Beutel bei 180°C verschweißen.</span>
                     </label>
                 </div>
             </div>
@@ -877,7 +526,6 @@
     </section>
 </main>
 
-<!-- Password Modal -->
 <div id="password-modal" class="no-print hidden fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
         <div class="flex items-center space-x-3 mb-4">
@@ -898,9 +546,7 @@
     </div>
 </div>
 
-<footer class="no-print bg-slate-900 text-slate-400 py-4 text-center border-t border-slate-800">
-    <p class="text-[10px] font-semibold text-slate-500">© 2026 Premium-Detox • v1.0.0-PWA</p>
-</footer>
+<footer class="no-print bg-slate-900 text-slate-400 py-4 text-center border-t border-slate-800"><p class="text-[10px] font-semibold text-slate-500">© 2026 Premium-Detox • v1.0.1-PWA</p></footer>
 
 <script>
     const SECRET_PIN = "DETOX85"; 
@@ -911,65 +557,52 @@
     const baseRecipes = {
         vollbad: {
             standardWater: 150,
-            duration: '120 Minuten',
             ingredients: [
-                { id: 'bicarb', name: 'Natriumbicarbonat (NaHCO3)', spec: 'Food Grade (ultrafein)', baseG: 500, costId: 'bicarb' },
-                { id: 'mgcl', name: 'Magnesiumchlorid (MgCl2)', spec: 'Pharma-Qualität', baseG: 150, costId: 'mgcl' },
-                { id: 'mgso4', name: 'Magnesiumsulfat (MgSO4)', spec: 'Pharma-Qualität', baseG: 100, costId: 'mgso4' },
-                { id: 'salt', name: 'Keltisches Meersalz', spec: 'Unraffiniert', baseG: 100, costId: 'salt' },
-                { id: 'carb', name: 'Natriumcarbonat (Na2CO3)', spec: 'Food Grade (Soda Ash)', baseG: 50, costId: 'carb' },
-                { id: 'zeo', name: 'Zeolith-Klinoptilolith', spec: 'Ultrafein (< 10 µm)', baseG: 50, costId: 'zeo' },
-                { id: 'bent', name: 'Calcium-Bentonit (Montmorillonit)', spec: 'Ultrafein', baseG: 30, costId: 'bent' },
-                { id: 'fucus', name: 'Fucus vesiculosus (Blasentang)', spec: 'Bio-Pulver', baseG: 15, costId: 'fucus' },
-                { id: 'tween', name: 'Tween 20 (Polysorbat 20)', spec: 'Pharma-Qualität', baseG: 6, costId: 'tween' },
-                { id: 'cypress', name: 'Zypressenöl', spec: '100% naturrein', baseG: 3, costId: 'cypress' },
-                { id: 'juniper', name: 'Wacholderbeerenöl', spec: '100% naturrein', baseG: 2, costId: 'juniper' },
-                { id: 'rosemary', name: 'Rosmarinöl (CT Cineol)', spec: '100% naturrein', baseG: 2, costId: 'rosemary' },
-                { id: 'lavender', name: 'Lavendelöl', spec: '100% naturrein', baseG: 1.5, costId: 'lavender' },
-                { id: 'silica', name: 'Fumed Silica (SiO2 / Aerosil 200)', spec: 'Hochdispers', baseG: 10, costId: 'silica' },
-                { id: 'pack', name: 'Alu-Kraftpapierbeutel', spec: 'Standbodenbeutel', baseG: 1, costId: 'pack', isItem: true }
+                { id: 'bicarb', name: 'Natriumbicarbonat (NaHCO3)', spec: 'Food Grade', baseG: 500 },
+                { id: 'mgcl', name: 'Magnesiumchlorid (MgCl2)', spec: 'Pharma-Qualität', baseG: 150 },
+                { id: 'mgso4', name: 'Magnesiumsulfat (MgSO4)', spec: 'Pharma-Qualität', baseG: 100 },
+                { id: 'salt', name: 'Keltisches Meersalz', spec: 'Unraffiniert', baseG: 100 },
+                { id: 'carb', name: 'Natriumcarbonat (Na2CO3)', spec: 'Food Grade', baseG: 50 },
+                { id: 'zeo', name: 'Zeolith-Klinoptilolith', spec: 'Ultrafein', baseG: 50 },
+                { id: 'bent', name: 'Calcium-Bentonit', spec: 'Ultrafein', baseG: 30 },
+                { id: 'fucus', name: 'Fucus vesiculosus', spec: 'Bio-Pulver', baseG: 15 },
+                { id: 'tween', name: 'Tween 20', spec: 'Pharma-Qualität', baseG: 6 },
+                { id: 'cypress', name: 'Zypressenöl', spec: '100% naturrein', baseG: 3 },
+                { id: 'juniper', name: 'Wacholderbeerenöl', spec: '100% naturrein', baseG: 2 },
+                { id: 'rosemary', name: 'Rosmarinöl (CT Cineol)', spec: '100% naturrein', baseG: 2 },
+                { id: 'lavender', name: 'Lavendelöl', spec: '100% naturrein', baseG: 1.5 },
+                { id: 'silica', name: 'Fumed Silica (Aerosil 200)', spec: 'Hochdispers', baseG: 10 },
+                { id: 'pack', name: 'Alu-Kraftpapierbeutel', spec: 'Standbodenbeutel', baseG: 1, isItem: true }
             ]
         },
         fussbad: {
             standardWater: 10,
-            duration: '45 - 60 Minuten',
             ingredients: [
-                { id: 'bicarb', name: 'Natriumbicarbonat (NaHCO3)', spec: 'Food Grade (ultrafein)', baseG: 75, costId: 'bicarb' },
-                { id: 'mgcl', name: 'Magnesiumchlorid (MgCl2)', spec: 'Pharma-Qualität', baseG: 22.5, costId: 'mgcl' },
-                { id: 'mgso4', name: 'Magnesiumsulfat (MgSO4)', spec: 'Pharma-Qualität', baseG: 15, costId: 'mgso4' },
-                { id: 'salt', name: 'Keltisches Meersalz', spec: 'Unraffiniert', baseG: 15, costId: 'salt' },
-                { id: 'carb', name: 'Natriumcarbonat (Na2CO3)', spec: 'Food Grade (Soda Ash)', baseG: 7.5, costId: 'carb' },
-                { id: 'zeo', name: 'Zeolith-Klinoptilolith', spec: 'Ultrafein', baseG: 7.5, costId: 'zeo' },
-                { id: 'bent', name: 'Calcium-Bentonit (Montmorillonit)', spec: 'Ultrafein', baseG: 4.5, costId: 'bent' },
-                { id: 'fucus', name: 'Fucus vesiculosus (Blasentang)', spec: 'Bio-Pulver', baseG: 2.25, costId: 'fucus' },
-                { id: 'tween', name: 'Tween 20 (Polysorbat 20)', spec: 'Pharma-Qualität', baseG: 0.9, costId: 'tween' },
-                { id: 'cypress', name: 'Zypressenöl', spec: '100% naturrein', baseG: 0.45, costId: 'cypress' },
-                { id: 'juniper', name: 'Wacholderbeerenöl', spec: '100% naturrein', baseG: 0.3, costId: 'juniper' },
-                { id: 'rosemary', name: 'Rosmarinöl (CT Cineol)', spec: '100% naturrein', baseG: 0.3, costId: 'rosemary' },
-                { id: 'lavender', name: 'Lavendelöl', spec: '100% naturrein', baseG: 0.225, costId: 'lavender' },
-                { id: 'silica', name: 'Fumed Silica (SiO2 / Aerosil 200)', spec: 'Hochdispers', baseG: 1.5, costId: 'silica' },
-                { id: 'pack', name: 'Alu-Kraftpapierbeutel', spec: 'Ziplock-Beutel klein', baseG: 1, costId: 'pack', isItem: true }
+                { id: 'bicarb', name: 'Natriumbicarbonat (NaHCO3)', spec: 'Food Grade', baseG: 75 },
+                { id: 'mgcl', name: 'Magnesiumchlorid (MgCl2)', spec: 'Pharma-Qualität', baseG: 22.5 },
+                { id: 'mgso4', name: 'Magnesiumsulfat (MgSO4)', spec: 'Pharma-Qualität', baseG: 15 },
+                { id: 'salt', name: 'Keltisches Meersalz', spec: 'Unraffiniert', baseG: 15 },
+                { id: 'carb', name: 'Natriumcarbonat (Na2CO3)', spec: 'Food Grade', baseG: 7.5 },
+                { id: 'zeo', name: 'Zeolith-Klinoptilolith', spec: 'Ultrafein', baseG: 7.5 },
+                { id: 'bent', name: 'Calcium-Bentonit', spec: 'Ultrafein', baseG: 4.5 },
+                { id: 'fucus', name: 'Fucus vesiculosus', spec: 'Bio-Pulver', baseG: 2.25 },
+                { id: 'tween', name: 'Tween 20', spec: 'Pharma-Qualität', baseG: 0.9 },
+                { id: 'cypress', name: 'Zypressenöl', spec: '100% naturrein', baseG: 0.45 },
+                { id: 'juniper', name: 'Wacholderbeerenöl', spec: '100% naturrein', baseG: 0.3 },
+                { id: 'rosemary', name: 'Rosmarinöl (CT Cineol)', spec: '100% naturrein', baseG: 0.3 },
+                { id: 'lavender', name: 'Lavendelöl', spec: '100% naturrein', baseG: 0.225 },
+                { id: 'silica', name: 'Fumed Silica (Aerosil 200)', spec: 'Hochdispers', baseG: 1.5 },
+                { id: 'pack', name: 'Alu-Kraftpapierbeutel', spec: 'Ziplock-Beutel klein', baseG: 1, isItem: true }
             ]
         }
     };
 
-    // FIX INJECTED MERCHANT REAL PRICES FROM PDF
     const defaultCosts = {
-        bicarb: { price: 401, size: 5000 },
-        mgcl: { price: 549, size: 5000 },
-        mgso4: { price: 526.50, size: 5000 },
-        salt: { price: 623, size: 1000 },
-        carb: { price: 478, size: 5000 },
-        zeo: { price: 0, size: 200 },
-        bent: { price: 214, size: 2000 },
-        fucus: { price: 0, size: 250 },
-        tween: { price: 190, size: 100 },
-        cypress: { price: 765, size: 30 },
-        juniper: { price: 320, size: 10 },
-        rosemary: { price: 377, size: 10 },
-        lavender: { price: 130, size: 10 },
-        silica: { price: 175, size: 100 },
-        pack: { price: 210, size: 50 } 
+        bicarb: { price: 401, size: 5000 }, mgcl: { price: 549, size: 5000 }, mgso4: { price: 526.50, size: 5000 },
+        salt: { price: 623, size: 1000 }, carb: { price: 478, size: 5000 }, zeo: { price: 0, size: 200 },
+        bent: { price: 214, size: 2000 }, fucus: { price: 0, size: 250 }, tween: { price: 190, size: 100 },
+        cypress: { price: 765, size: 30 }, juniper: { price: 320, size: 10 }, rosemary: { price: 377, size: 10 },
+        lavender: { price: 130, size: 10 }, silica: { price: 175, size: 100 }, pack: { price: 210, size: 50 } 
     };
 
     let userCosts = {};
@@ -977,80 +610,33 @@
 
     window.onload = function() {
         loadCostsFromLocalStorage();
-        checkLoginPersistence();
+        if (localStorage.getItem('detox_portal_unlocked') === 'true') unlockAdminVisuals();
         setBathType('vollbad');
-        setActiveTab(1);
     };
 
-    function checkLoginPersistence() {
-        if (localStorage.getItem('detox_portal_unlocked') === 'true') unlockAdminVisuals();
-        else lockAdminVisuals();
-    }
-
-    function lockAdminVisuals() {
-        isAdminUnlocked = false;
-        localStorage.setItem('detox_portal_unlocked', 'false');
-        document.getElementById('secret-key-icon').className = "fa-solid fa-key text-slate-400 text-sm";
-        renderNavigationTabs();
-    }
-
-    function unlockAdminVisuals() {
-        isAdminUnlocked = true;
-        localStorage.setItem('detox_portal_unlocked', 'true');
-        document.getElementById('secret-key-icon').className = "fa-solid fa-lock-open text-emerald-400 text-sm";
-        renderNavigationTabs();
-    }
-
-    function handleKeyClick() {
-        if (isAdminUnlocked) { lockAdminVisuals(); setActiveTab(1); }
-        else openPasswordModal();
-    }
-
-    function openPasswordModal() {
-        document.getElementById('password-modal').classList.remove('hidden');
-        document.getElementById('input-password').focus();
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closePasswordModal();
-    });
-
-    function closePasswordModal() {
-        document.getElementById('password-modal').classList.add('hidden');
-        document.getElementById('password-error').classList.add('hidden');
-        document.getElementById('input-password').value = '';
-    }
-
+    function handleKeyClick() { if (isAdminUnlocked) { lockAdminVisuals(); setActiveTab(1); } else openPasswordModal(); }
+    function openPasswordModal() { document.getElementById('password-modal').classList.remove('hidden'); document.getElementById('input-password').focus(); }
+    function closePasswordModal() { document.getElementById('password-modal').classList.add('hidden'); document.getElementById('input-password').value = ''; }
+    
     function checkPassword() {
-        if (document.getElementById('input-password').value === SECRET_PIN) {
-            unlockAdminVisuals(); closePasswordModal();
-        } else {
-            document.getElementById('password-error').classList.remove('hidden');
-            document.getElementById('input-password').value = '';
-        }
+        if (document.getElementById('input-password').value === SECRET_PIN) { unlockAdminVisuals(); closePasswordModal(); } 
+        else { document.getElementById('password-error').classList.remove('hidden'); }
     }
+
+    function unlockAdminVisuals() { isAdminUnlocked = true; localStorage.setItem('detox_portal_unlocked', 'true'); document.getElementById('secret-key-icon').className = "fa-solid fa-lock-open text-emerald-400 text-sm"; renderNavigationTabs(); }
+    function lockAdminVisuals() { isAdminUnlocked = false; localStorage.setItem('detox_portal_unlocked', 'false'); document.getElementById('secret-key-icon').className = "fa-solid fa-key text-slate-400 text-sm"; renderNavigationTabs(); }
 
     function renderNavigationTabs() {
         const navContainer = document.getElementById('main-nav-container');
         let html = `
-            <button onclick="setActiveTab(1)" id="tab-btn-1" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 1 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}">
-                <i class="fa-solid fa-book-open"></i><span>1. Wissenschaft & Wirkung</span>
-            </button>
-            <button onclick="setActiveTab(2)" id="tab-btn-2" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 2 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}">
-                <i class="fa-solid fa-heart-pulse text-emerald-500"></i><span>2. Anwendung & Massage</span>
-            </button>
+            <button onclick="setActiveTab(1)" id="tab-btn-1" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 1 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}"><i class="fa-solid fa-book-open"></i><span>1. Wissenschaft & Wirkung</span></button>
+            <button onclick="setActiveTab(2)" id="tab-btn-2" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 2 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}"><i class="fa-solid fa-heart-pulse text-emerald-500"></i><span>2. Anwendung & Massage</span></button>
         `;
         if (isAdminUnlocked) {
             html += `
-                <button onclick="setActiveTab(3)" id="tab-btn-3" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 3 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}">
-                    <i class="fa-solid fa-calculator text-indigo-500"></i><span>3. Mengenrechner</span>
-                </button>
-                <button onclick="setActiveTab(4)" id="tab-btn-4" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 4 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}">
-                    <i class="fa-solid fa-coins text-amber-500"></i><span>4. Kostenkalkulation</span>
-                </button>
-                <button onclick="setActiveTab(5)" id="tab-btn-5" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 5 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}">
-                    <i class="fa-solid fa-mortar-pestle text-teal-500"></i><span>5. Labor-Zubereitung</span>
-                </button>
+                <button onclick="setActiveTab(3)" id="tab-btn-3" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 3 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}"><i class="fa-solid fa-calculator text-indigo-500"></i><span>3. Mengenrechner</span></button>
+                <button onclick="setActiveTab(4)" id="tab-btn-4" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 4 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}"><i class="fa-solid fa-coins text-amber-500"></i><span>4. Kostenkalkulation</span></button>
+                <button onclick="setActiveTab(5)" id="tab-btn-5" class="flex-shrink-0 flex items-center space-x-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${activeTab === 5 ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-50'}"><i class="fa-solid fa-mortar-pestle text-teal-500"></i><span>5. Labor-Zubereitung</span></button>
             `;
         }
         navContainer.innerHTML = html;
@@ -1058,36 +644,24 @@
 
     function setBathType(type) {
         currentBathType = type;
-        const btnVoll = document.getElementById('btn-mode-vollbad');
-        const btnFuss = document.getElementById('btn-mode-fussbad');
         if (type === 'vollbad') {
-            btnVoll.className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-300 bg-indigo-600 text-white shadow-sm";
-            btnFuss.className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-300 text-slate-400 hover:text-white";
+            document.getElementById('btn-mode-vollbad').className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-indigo-600 text-white shadow-sm";
+            document.getElementById('btn-mode-fussbad').className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all text-slate-400 hover:text-white";
             document.getElementById('input-water-volume').value = "150";
-            document.getElementById('lbl-input-water').innerText = "Ziel-Wassermenge Vollbad (Liter)";
-            document.getElementById('lbl-desc-water').innerText = "Vollbad Standard: 150 Liter";
             document.getElementById('val-protocol-duration').innerText = "120 Minuten";
-            document.getElementById('print-header-title').innerText = "Premium-Alkalisch-Osmotisches Vollbad";
         } else {
-            btnFuss.className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-300 bg-indigo-600 text-white shadow-sm";
-            btnVoll.className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all duration-300 text-slate-400 hover:text-white";
+            document.getElementById('btn-mode-fussbad').className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all bg-indigo-600 text-white shadow-sm";
+            document.getElementById('btn-mode-vollbad').className = "flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-bold transition-all text-slate-400 hover:text-white";
             document.getElementById('input-water-volume').value = "10";
-            document.getElementById('lbl-input-water').innerText = "Ziel-Wassermenge Fußbad (Liter)";
-            document.getElementById('lbl-desc-water').innerText = "Fußbad Standard: 10 Liter";
             document.getElementById('val-protocol-duration').innerText = "45 - 60 Minuten";
-            document.getElementById('print-header-title').innerText = "Premium-Alkalisch-Osmotisches Fußbad";
         }
         recalculate();
     }
 
     function setActiveTab(tabNum) {
         activeTab = tabNum;
-        for (let i = 1; i <= 5; i++) {
-            const pane = document.getElementById(`tab-content-${i}`);
-            if (pane) pane.classList.add('hidden');
-        }
-        const activePane = document.getElementById(`tab-content-${tabNum}`);
-        if (activePane) activePane.classList.remove('hidden');
+        for (let i = 1; i <= 5; i++) { if (document.getElementById(`tab-content-${i}`)) document.getElementById(`tab-content-${i}`).classList.add('hidden'); }
+        if (document.getElementById(`tab-content-${tabNum}`)) document.getElementById(`tab-content-${tabNum}`).classList.remove('hidden');
         renderNavigationTabs();
     }
 
@@ -1117,18 +691,12 @@
             scaledValuesMap[item.id] = scaledBatch;
 
             const row = document.createElement('tr');
-            row.className = "hover:bg-slate-50/50 transition-colors";
-            row.innerHTML = `
-                <td class="px-4 sm:px-6 py-4 font-bold text-slate-900">${item.name}</td>
-                <td class="px-4 sm:px-6 py-4 text-slate-500 text-xs">${item.spec}</td>
-                <td class="px-4 sm:px-6 py-4 text-right font-medium text-slate-700">${scaledSingle.toLocaleString('de-DE', { maximumFractionDigits: 3 })} ${unitSuffix}</td>
-                <td class="px-4 sm:px-6 py-4 text-right font-black bg-indigo-50/20 text-indigo-900 border-l border-slate-100">${scaledBatch.toLocaleString('de-DE', { maximumFractionDigits: 2 })} ${unitSuffix}</td>
-            `;
+            row.className = "hover:bg-slate-50/50 border-b transition-colors";
+            row.innerHTML = `<td class="px-4 sm:px-6 py-4 font-bold text-slate-900">${item.name}</td><td class="px-4 sm:px-6 py-4 text-slate-500 text-xs">${item.spec}</td><td class="px-4 sm:px-6 py-4 text-right">${scaledSingle.toLocaleString('de-DE')} ${unitSuffix}</td><td class="px-4 sm:px-6 py-4 text-right font-black bg-indigo-50/20 text-indigo-900">${scaledBatch.toLocaleString('de-DE')} ${unitSuffix}</td>`;
             ingredientsBody.appendChild(row);
             
-            const costParam = userCosts[item.costId] || defaultCosts[item.costId];
-            const costPerGram = costParam.price / costParam.size;
-            const singleCost = scaledSingle * costPerGram;
+            const costParam = userCosts[item.id] || defaultCosts[item.id];
+            const singleCost = scaledSingle * (costParam.price / costParam.size);
             const batchCost = singleCost * batchSize;
             
             totalSingleCost += singleCost;
@@ -1136,20 +704,8 @@
             costDriverList.push({ name: item.name, singleCost: singleCost });
             
             const costRow = document.createElement('tr');
-            costRow.className = "hover:bg-slate-50/50 transition-colors";
-            costRow.innerHTML = `
-                <td class="px-4 sm:px-6 py-4 font-bold text-slate-900">${item.name}</td>
-                <td class="px-4 sm:px-6 py-4 text-right text-slate-500 text-xs">${scaledBatch.toLocaleString('de-DE', { maximumFractionDigits: 2 })} ${unitSuffix}</td>
-                <td class="px-4 sm:px-6 py-3">
-                    <input type="number" step="0.01" value="${costParam.price}" oninput="updateCostField('${item.costId}', 'price', this.value)" class="w-full text-xs font-bold p-2 rounded-lg border border-slate-300">
-                </td>
-                <td class="px-4 sm:px-6 py-3 flex items-center">
-                    <input type="number" step="1" value="${costParam.size}" oninput="updateCostField('${item.costId}', 'size', this.value)" class="w-2/3 text-xs font-bold p-2 rounded-l-lg border border-slate-300 border-r-0">
-                    <span class="w-1/3 text-center bg-slate-100 border border-slate-300 border-l-0 text-[10px] py-2 font-black text-slate-500 rounded-r-lg">${unitSuffix}</span>
-                </td>
-                <td class="px-4 sm:px-6 py-4 text-right font-medium text-slate-600">${singleCost.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB</td>
-                <td class="px-4 sm:px-6 py-4 text-right font-bold bg-indigo-50/20 text-indigo-950 border-l border-slate-100">${batchCost.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB</td>
-            `;
+            costRow.className = "hover:bg-slate-50/50 border-b transition-colors";
+            costRow.innerHTML = `<td class="px-4 sm:px-6 py-4 font-bold">${item.name}</td><td class="px-4 sm:px-6 py-4 text-right">${scaledBatch.toLocaleString('de-DE')}</td><td class="px-4 sm:px-6 py-2"><input type="number" value="${costParam.price}" oninput="updateCostField('${item.id}', 'price', this.value)" class="w-full text-xs font-bold p-1.5 border rounded"></td><td class="px-4 sm:px-6 py-2"><input type="number" value="${costParam.size}" oninput="updateCostField('${item.id}', 'size', this.value)" class="w-full text-xs font-bold p-1.5 border rounded"></td><td class="px-4 sm:px-6 py-4 text-right text-emerald-600 font-bold">${singleCost.toFixed(2)} THB</td><td class="px-4 sm:px-6 py-4 text-right font-black bg-indigo-50/20">${batchCost.toFixed(2)} THB</td>`;
             costBody.appendChild(costRow);
         });
         
@@ -1163,92 +719,50 @@
         });
 
         document.getElementById('calc-btl-count-1').innerText = `${batchSize} Beutel`;
-        document.getElementById('calc-a-bicarb').innerText = `${scaledValuesMap['bicarb'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-a-mgcl').innerText = `${scaledValuesMap['mgcl'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-a-mgso4').innerText = `${scaledValuesMap['mgso4'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-a-salt').innerText = `${scaledValuesMap['salt'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-a-carb').innerText = `${scaledValuesMap['carb'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-a-zeo').innerText = `${scaledValuesMap['zeo'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-a-bent').innerText = `${scaledValuesMap['bent'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-a-fucus').innerText = `${scaledValuesMap['fucus'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-b-tween').innerText = `${scaledValuesMap['tween'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-b-cypress').innerText = `${scaledValuesMap['cypress'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-b-juniper').innerText = `${scaledValuesMap['juniper'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-b-rosemary').innerText = `${scaledValuesMap['rosemary'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-b-lavender').innerText = `${scaledValuesMap['lavender'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
-        document.getElementById('calc-c-silica').innerText = `${scaledValuesMap['silica'].toLocaleString('de-DE', { maximumFractionDigits: 2 })} g`;
+        document.getElementById('calc-a-bicarb').innerText = `${scaledValuesMap['bicarb'].toFixed(1)}g`;
+        document.getElementById('calc-a-mgcl').innerText = `${scaledValuesMap['mgcl'].toFixed(1)}g`;
+        document.getElementById('calc-a-mgso4').innerText = `${scaledValuesMap['mgso4'].toFixed(1)}g`;
+        document.getElementById('calc-a-salt').innerText = `${scaledValuesMap['salt'].toFixed(1)}g`;
+        document.getElementById('calc-a-carb').innerText = `${scaledValuesMap['carb'].toFixed(1)}g`;
+        document.getElementById('calc-a-zeo').innerText = `${scaledValuesMap['zeo'].toFixed(1)}g`;
+        document.getElementById('calc-a-bent').innerText = `${scaledValuesMap['bent'].toFixed(1)}g`;
+        document.getElementById('calc-a-fucus').innerText = `${scaledValuesMap['fucus'].toFixed(1)}g`;
+        document.getElementById('calc-b-tween').innerText = `${scaledValuesMap['tween'].toFixed(1)}g`;
+        document.getElementById('calc-b-cypress').innerText = `${scaledValuesMap['cypress'].toFixed(1)}g`;
+        document.getElementById('calc-b-juniper').innerText = `${scaledValuesMap['juniper'].toFixed(1)}g`;
+        document.getElementById('calc-b-rosemary').innerText = `${scaledValuesMap['rosemary'].toFixed(1)}g`;
+        document.getElementById('calc-b-lavender').innerText = `${scaledValuesMap['lavender'].toFixed(1)}g`;
+        document.getElementById('calc-c-silica').innerText = `${scaledValuesMap['silica'].toFixed(1)}g`;
         document.getElementById('calc-finish-pack').innerText = `${batchSize} Stk.`;
-        document.getElementById('calc-split-weight-a').innerText = `${(singlePhaseA_Weight * batchSize).toLocaleString('de-DE', { maximumFractionDigits: 2 })} g (Pro Btl: ${singlePhaseA_Weight.toFixed(2)}g)`;
-        document.getElementById('calc-split-weight-c').innerText = `${(singlePhaseC_Weight * batchSize).toLocaleString('de-DE', { maximumFractionDigits: 2 })} g (Pro Btl: ${singlePhaseC_Weight.toFixed(2)}g)`;
+        document.getElementById('calc-split-weight-a').innerText = `${(singlePhaseA_Weight * batchSize).toFixed(1)}g`;
+        document.getElementById('calc-split-weight-c').innerText = `${(singlePhaseC_Weight * batchSize).toFixed(1)}g`;
 
-        document.getElementById('val-total-batch-weight').innerText = `${totalBatchWeight.toLocaleString('de-DE', { maximumFractionDigits: 1 })} g`;
-        document.getElementById('val-single-weight').innerText = `${totalSingleWeight.toLocaleString('de-DE', { maximumFractionDigits: 1 })} g`;
-        document.getElementById('val-cost-per-unit').innerText = `${totalSingleCost.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB`;
-        document.getElementById('val-cost-per-unit-converted').innerText = `~ ${(totalSingleCost * THB_TO_EUR).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`;
-        document.getElementById('val-cost-total-batch').innerText = `${totalBatchCost.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB`;
-        document.getElementById('val-cost-total-batch-converted').innerText = `~ ${(totalBatchCost * THB_TO_EUR).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`;
+        document.getElementById('val-total-batch-weight').innerText = `${totalBatchWeight.toFixed(1)} g`;
+        document.getElementById('val-single-weight').innerText = `${totalSingleWeight.toFixed(1)} g`;
+        document.getElementById('val-cost-per-unit').innerText = `${totalSingleCost.toFixed(2)} THB`;
+        document.getElementById('val-cost-per-unit-converted').innerText = `~ ${(totalSingleCost * THB_TO_EUR).toFixed(2)} EUR`;
+        document.getElementById('val-cost-total-batch').innerText = `${totalBatchCost.toFixed(2)} THB`;
+        document.getElementById('val-cost-total-batch-converted').innerText = `~ ${(totalBatchCost * THB_TO_EUR).toFixed(2)} EUR`;
         
         costDriverList.sort((a, b) => b.singleCost - a.singleCost);
-        if (costDriverList[0] && totalSingleCost > 0) {
-            document.getElementById('cost-driver-1-name').innerText = costDriverList[0].name.split(' (')[0];
-            document.getElementById('cost-driver-1-percent').innerText = `${((costDriverList[0].singleCost / totalSingleCost) * 100).toFixed(1)}%`;
-        }
-        if (costDriverList[1] && totalSingleCost > 0) {
-            document.getElementById('cost-driver-2-name').innerText = costDriverList[1].name.split(' (')[0];
-            document.getElementById('cost-driver-2-percent').innerText = `${((costDriverList[1].singleCost / totalSingleCost) * 100).toFixed(1)}%`;
-        }
+        if (costDriverList[0]) { document.getElementById('cost-driver-1-name').innerText = costDriverList[0].name.split(' (')[0]; document.getElementById('cost-driver-1-percent').innerText = `${((costDriverList[0].singleCost / totalSingleCost) * 100).toFixed(1)}%`; }
+        if (costDriverList[1]) { document.getElementById('cost-driver-2-name').innerText = costDriverList[1].name.split(' (')[0]; document.getElementById('cost-driver-2-percent').innerText = `${((costDriverList[1].singleCost / totalSingleCost) * 100).toFixed(1)}%`; }
     }
 
-    function updateCostField(costId, field, val) {
-        if (!userCosts[costId]) userCosts[costId] = { ...defaultCosts[costId] };
-        userCosts[costId][field] = parseFloat(val) || 0;
-        localStorage.setItem('premium_bath_costs_v1', JSON.stringify(userCosts));
-        recalculate();
-    }
-
-    function resetCostsToDefaults() {
-        userCosts = JSON.parse(JSON.stringify(defaultCosts));
-        localStorage.setItem('premium_bath_costs_v1', JSON.stringify(userCosts));
-        recalculate();
-    }
-
-    function loadCostsFromLocalStorage() {
-        const stored = localStorage.getItem('premium_bath_costs_v1');
-        if (stored) { try { userCosts = JSON.parse(stored); } catch (e) { resetCostsToDefaults(); } } 
-        else resetCostsToDefaults();
-    }
-
-    function resetPrepSteps() {
-        document.querySelectorAll('.step-checkbox').forEach(box => box.checked = false);
-    }
-
-    function highlightRegion(regionId) {
+    function updateCostField(id, field, val) { if (!userCosts[id]) userCosts[id] = { ...defaultCosts[id] }; userCosts[id][field] = parseFloat(val) || 0; localStorage.setItem('premium_bath_costs_v1', JSON.stringify(userCosts)); recalculate(); }
+    function resetCostsToDefaults() { userCosts = JSON.parse(JSON.stringify(defaultCosts)); localStorage.setItem('premium_bath_costs_v1', JSON.stringify(userCosts)); recalculate(); }
+    function loadCostsFromLocalStorage() { const stored = localStorage.getItem('premium_bath_costs_v1'); if (stored) { try { userCosts = JSON.parse(stored); } catch (e) { resetCostsToDefaults(); } } else resetCostsToDefaults(); }
+    function highlightRegion(id) {
         const hud = document.getElementById('visual-hud-label');
-        if (regionId === 'terminus') hud.innerHTML = "<strong class='text-red-400'>TERMINUS (Schlüsselbeine):</strong> Primär aktivieren! 15 sanfte kreisende Streichbewegungen.";
-        else if (regionId === 'axillary') hud.innerHTML = "<strong class='text-teal-400'>ACHSELKNOTEN:</strong> Torso oberhalb des Bauchnabels aufwärts hierhin bürsten.";
-        else if (regionId === 'inguinal') hud.innerHTML = "<strong class='text-amber-400'>LEISTENKNOTEN:</strong> Beine aufwärts & Abdomen abwärts hierhin bürsten.";
+        if (id === 'terminus') hud.innerHTML = "<strong class='text-red-400'>TERMINUS (Hals):</strong> Primär aktivieren! 15 sanfte Kreisungen.";
+        else if (id === 'axillary') hud.innerHTML = "<strong class='text-teal-400'>ACHSELKNOTEN:</strong> Torso oberhalb des Bauchnabels aufwärts hierhin bürsten.";
+        else if (id === 'inguinal') hud.innerHTML = "<strong class='text-amber-400'>LEISTENKNOTEN:</strong> Beine aufwärts & Abdomen abwärts hierhin bürsten.";
     }
-
-    function switchDrinkRecipe(recipeNum) {
-        const btn1 = document.getElementById('btn-drink-1'), btn2 = document.getElementById('btn-drink-2');
-        const rec1 = document.getElementById('drink-recipe-1'), rec2 = document.getElementById('drink-recipe-2');
-        if (recipeNum === 1) {
-            btn1.className = "py-2 px-4 border-b-2 border-indigo-600 text-indigo-600 font-bold";
-            btn2.className = "py-2 px-4 border-b-2 border-transparent text-slate-500 hover:text-indigo-600 font-medium";
-            rec1.classList.remove('hidden'); rec2.classList.add('hidden');
-        } else {
-            btn2.className = "py-2 px-4 border-b-2 border-indigo-600 text-indigo-600 font-bold";
-            btn1.className = "py-2 px-4 border-b-2 border-transparent text-slate-500 hover:text-indigo-600 font-medium";
-            rec2.classList.remove('hidden'); rec1.classList.add('hidden');
-        }
+    function switchDrinkRecipe(num) {
+        if (num === 1) { document.getElementById('btn-drink-1').className = "py-2 px-4 border-b-2 border-indigo-600 text-indigo-600 font-bold"; document.getElementById('btn-drink-2').className = "py-2 px-4 text-slate-500 font-medium"; document.getElementById('drink-recipe-1').classList.remove('hidden'); document.getElementById('drink-recipe-2').classList.add('hidden'); } 
+        else { document.getElementById('btn-drink-2').className = "py-2 px-4 border-b-2 border-indigo-600 text-indigo-600 font-bold"; document.getElementById('btn-drink-1').className = "py-2 px-4 text-slate-500 font-medium"; document.getElementById('drink-recipe-2').classList.remove('hidden'); document.getElementById('drink-recipe-1').classList.add('hidden'); }
     }
-
-    // PWA Service Worker Registration
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').catch(err => console.error(err));
-        });
-    }
+    if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(err => console.error(err)); }); }
 </script>
 </body>
 </html>
