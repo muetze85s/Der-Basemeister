@@ -1,7 +1,7 @@
 {
-  "name": "Premium Alkalisch-Osmotisches Laborportal",
-  "short_name": "DetoxPortal",
-  "description": "Biophysikalische Osmosetherapie & Galenischer Mengenrechner",
+  "name": "Der Basemeister - Osmosetherapie",
+  "short_name": "Der Basemeister",
+  "description": "Physiologische Osmosetherapie & Galenisches Management Cockpit",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0b1329",
@@ -9,7 +9,7 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/3209/3209192.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
