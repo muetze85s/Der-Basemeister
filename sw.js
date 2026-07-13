@@ -1,4 +1,4 @@
-const CACHE_NAME = 'detox-portal-v1.0.1';
+const CACHE_NAME = 'basemeister-pwa-v1.0.2';
 const ASSETS = [
   'index.html',
   'manifest.json',
